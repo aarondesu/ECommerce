@@ -1,4 +1,5 @@
 import { IsEmail, IsString, IsBoolean } from 'class-validator';
+import { ObjectID } from 'typeorm';
 
 // eslint-disable-next-line import/prefer-default-export
 export class CreateUserDTO {
@@ -30,4 +31,9 @@ export class LoginUserDto {
 
   @IsString()
     password: string;
+}
+
+export class GetUserDTO {
+  @IsString()
+    id: ObjectID;
 }

@@ -1,13 +1,22 @@
 import { Router } from 'express';
 import ExpressApp from 'src/app';
+
+import UserController from '../controllers/user.controller';
 import { RouterInterface } from '../interfaces/router';
 
 class UserRoute implements RouterInterface {
-  public path?: string = '/users';
+  path?: string = '/users';
 
-  public router: Router = Router();
+  router: Router = Router();
 
-  public app: ExpressApp;
+  app: ExpressApp;
+
+  userController: UserController = new UserController();
+
+  constructor() {
+    this.router.get('/:id', [this.userController.get]);
+    // this.router.post('/update/:id', [this.userController.update]);
+  }
 }
 
 export default UserRoute;
