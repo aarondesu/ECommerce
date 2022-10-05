@@ -1,4 +1,4 @@
-export default class HTTPException extends Error {
+class HTTPException extends Error {
   public status: number;
 
   public message: string;
@@ -9,3 +9,5 @@ export default class HTTPException extends Error {
     this.message = message;
   }
 }
+
+export default HTTPException;

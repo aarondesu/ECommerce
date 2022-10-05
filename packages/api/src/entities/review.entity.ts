@@ -14,7 +14,7 @@ import Products from './product.entity';
 import Users from './user.entity';
 
 @Entity()
-export default class Reviews extends BaseEntity {
+class Reviews extends BaseEntity {
   @ObjectIdColumn()
     id: ObjectID;
 
@@ -38,3 +38,5 @@ export default class Reviews extends BaseEntity {
   @JoinColumn()
     product: Products;
 }
+
+export default Reviews;

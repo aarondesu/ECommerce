@@ -12,7 +12,7 @@ import Products from './product.entity';
 import Users from './user.entity';
 
 @Entity()
-export default class Orders extends BaseEntity {
+class Orders extends BaseEntity {
   @ObjectIdColumn()
     id: ObjectID;
 
@@ -29,3 +29,5 @@ export default class Orders extends BaseEntity {
   @Column({ default: false })
     pending: boolean;
 }
+
+export default Orders;

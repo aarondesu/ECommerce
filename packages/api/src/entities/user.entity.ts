@@ -14,7 +14,7 @@ import Carts from './cart.entity';
 import Orders from './order.entity';
 
 @Entity()
-export default class Users extends BaseEntity {
+class Users extends BaseEntity {
   @ObjectIdColumn()
     id: ObjectID;
 
@@ -50,3 +50,5 @@ export default class Users extends BaseEntity {
   @JoinColumn()
     order: Orders;
 }
+
+export default Users;

@@ -14,7 +14,7 @@ import Carts from './cart.entity';
 import Reviews from './review.entity';
 
 @Entity()
-export default class Products extends BaseEntity {
+class Products extends BaseEntity {
   @ObjectIdColumn()
     id: ObjectID;
 
@@ -56,3 +56,5 @@ export default class Products extends BaseEntity {
   @JoinColumn()
     reviews: Reviews[];
 }
+
+export default Products;

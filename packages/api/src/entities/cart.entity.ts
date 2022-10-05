@@ -1,13 +1,18 @@
 import {
   BaseEntity,
-  Column, Entity, JoinColumn, ManyToOne, ObjectID, ObjectIdColumn,
+  Column,
+  Entity,
+  JoinColumn,
+  ManyToOne,
+  ObjectID,
+  ObjectIdColumn,
 } from 'typeorm';
 
 import Products from './product.entity';
 import Users from './user.entity';
 
 @Entity()
-export default class Carts extends BaseEntity {
+class Carts extends BaseEntity {
   @ObjectIdColumn()
     id: ObjectID;
 
@@ -25,3 +30,5 @@ export default class Carts extends BaseEntity {
   @JoinColumn()
     user: Users;
 }
+
+export default Carts;
