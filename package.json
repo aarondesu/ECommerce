@@ -8,15 +8,26 @@
   "scripts": {
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "format": "yarn lint --fix",
+    "clean": "yarn workspaces foreach yarn run clean",
+    "build": "yarn workspaces foreach yarn run build",
     "start": "yarn workspace @ecommerce/client start"
   },
   "devDependencies": {
-    "eslint": "^7.32.0 || ^8.2.0",
-    "eslint-config-airbnb": "latest",
-    "eslint-plugin-import": "^2.25.3",
+    "@typescript-eslint/eslint-plugin": "^5.13.0",
+    "@typescript-eslint/parser": "^5.0.0",
+    "eslint": "^8.0.1",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-airbnb-base": "latest",
+    "eslint-config-airbnb-typescript": "^17.0.0",
+    "eslint-config-standard-with-typescript": "latest",
+    "eslint-plugin-import": "^2.25.2",
     "eslint-plugin-jsx-a11y": "^6.5.1",
-    "eslint-plugin-react": "^7.28.0",
+    "eslint-plugin-n": "^15.0.0",
+    "eslint-plugin-promise": "^6.0.0",
+    "eslint-plugin-react": "latest",
     "eslint-plugin-react-hooks": "^4.3.0",
-    "prettier": "^2.7.1"
+    "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
+    "typescript": "*"
   }
 }

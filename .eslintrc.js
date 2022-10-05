@@ -1,0 +1,30 @@
+module.exports = {
+  root: true,
+  parser: '@typescript-eslint/parser',
+  parserOptions: {
+    tsconfigRootDir: __dirname,
+    project: ['./tsconfig.eslint.json', 'packages/*/tsconfig.json'],
+  },
+  plugins: ['@typescript-eslint'],
+  extends: [
+    'airbnb',
+    'airbnb-typescript',
+    'eslint:recommended',
+    'plugin:@typescript-eslint/recommended',
+    'plugin:@typescript-eslint/recommended-requiring-type-checking',
+  ],
+  rules: {
+    'no-consoles': 'off',
+    'import/no-cycle': 'off',
+    'no-restricted-syntax': 'off',
+    'import/no-dynamic-require': 'off',
+    'global-require ': 'off',
+    'new-cap': 'off',
+    'no-unused-vars': 'warn',
+    'import/extensions': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/function-component-definition': 'off',
+    'max-classes-per-file': 'off',
+    'class-methods-use-this': 'off',
+  },
+};

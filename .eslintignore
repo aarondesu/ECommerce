@@ -1,0 +1,14 @@
+# Specific file
+.eslintrc.js
+
+# Folders
+node_modules
+build
+.yarn
+
+# Test files
+*.test.js
+*.test.jsx
+
+*.test.ts
+*.test.tsx
