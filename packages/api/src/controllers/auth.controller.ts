@@ -46,7 +46,7 @@ export default class AuthController {
   public logout = (req: Request, res: Response) => {
     logger.info('Test');
     req.logOut(() => {
-      res.redirect('/');
+      res.status(301).redirect('/');
     });
   };
 }
