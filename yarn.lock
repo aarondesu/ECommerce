@@ -353,9 +353,14 @@ __metadata:
     "@types/express-session": ^1.17.5
     "@types/jsonwebtoken": ^8.5.9
     "@types/node": ^18.8.1
+    "@types/passport": ^1.0.11
+    "@types/passport-local": ^1.0.34
+    "@types/passport-strategy": ^0.2.35
     "@types/pino": ^7.0.5
     "@types/pino-pretty": ^4.7.5
     class-validator: ^0.13.2
+    connect-mongo: ^4.6.0
+    connect-typeorm: ^2.0.0
     cors: ^2.8.5
     crypto-js: ^4.1.1
     dotenv: ^16.0.3
@@ -1125,6 +1130,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/debug@npm:0.0.31":
+  version: 0.0.31
+  resolution: "@types/debug@npm:0.0.31"
+  checksum: d3f2cfa083f0f71015874f4a3e338deb3acbd80fc52c2b4c4eb21e2f28a0f5f5184d0861c8ec2b83e7c1e4db01fc2ec96646ae14fa7028f6da5acdf948b72fcb
+  languageName: node
+  linkType: hard
+
 "@types/express-serve-static-core@npm:^4.17.18":
   version: 4.17.31
   resolution: "@types/express-serve-static-core@npm:4.17.31"
@@ -1136,7 +1148,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/express-session@npm:^1.17.5":
+"@types/express-session@npm:^1.15.5, @types/express-session@npm:^1.17.5":
   version: 1.17.5
   resolution: "@types/express-session@npm:1.17.5"
   dependencies:
@@ -1198,6 +1210,36 @@ __metadata:
   version: 4.0.0
   resolution: "@types/parse-json@npm:4.0.0"
   checksum: fd6bce2b674b6efc3db4c7c3d336bd70c90838e8439de639b909ce22f3720d21344f52427f1d9e57b265fcb7f6c018699b99e5e0c208a1a4823014269a6bf35b
+  languageName: node
+  linkType: hard
+
+"@types/passport-local@npm:^1.0.34":
+  version: 1.0.34
+  resolution: "@types/passport-local@npm:1.0.34"
+  dependencies:
+    "@types/express": "*"
+    "@types/passport": "*"
+    "@types/passport-strategy": "*"
+  checksum: c8e162f571c8685344f4496b1473645eb1244a2ecb1c810854d43ac8897145083ac7412b8d3a3231f72f27a22d57e526fc8421d8208c18cdff8f83266e875f37
+  languageName: node
+  linkType: hard
+
+"@types/passport-strategy@npm:*, @types/passport-strategy@npm:^0.2.35":
+  version: 0.2.35
+  resolution: "@types/passport-strategy@npm:0.2.35"
+  dependencies:
+    "@types/express": "*"
+    "@types/passport": "*"
+  checksum: e5949063ad8977ce1f7cf2a5df6bc379c4d43a959c9946bfed6570ef379c6c12d1713212a29b3b5aafc631c5ebe9bfe082116f3e75ca1bf45d79dd889671532d
+  languageName: node
+  linkType: hard
+
+"@types/passport@npm:*, @types/passport@npm:^1.0.11":
+  version: 1.0.11
+  resolution: "@types/passport@npm:1.0.11"
+  dependencies:
+    "@types/express": "*"
+  checksum: 7fea92aeb0d05bd872c17deadc1f1219dbdb23bae1b8f50e1c432ef755bce2b5f3fd60af76c38815f1fbaa047960d3638a4144221c4330457091be1f6e492168
   languageName: node
   linkType: hard
 
@@ -1708,6 +1750,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"asn1.js@npm:^5.4.1":
+  version: 5.4.1
+  resolution: "asn1.js@npm:5.4.1"
+  dependencies:
+    bn.js: ^4.0.0
+    inherits: ^2.0.1
+    minimalistic-assert: ^1.0.0
+    safer-buffer: ^2.1.0
+  checksum: 3786a101ac6f304bd4e9a7df79549a7561950a13d4bcaec0c7790d44c80d147c1a94ba3d4e663673406064642a40b23fcd6c82a9952468e386c1a1376d747f9a
+  languageName: node
+  linkType: hard
+
 "ast-types-flow@npm:^0.0.7":
   version: 0.0.7
   resolution: "ast-types-flow@npm:0.0.7"
@@ -1772,6 +1826,13 @@ __metadata:
   version: 2.2.0
   resolution: "binary-extensions@npm:2.2.0"
   checksum: ccd267956c58d2315f5d3ea6757cf09863c5fc703e50fbeb13a7dc849b812ef76e3cf9ca8f35a0c48498776a7478d7b4a0418e1e2b8cb9cb9731f2922aaad7f8
+  languageName: node
+  linkType: hard
+
+"bn.js@npm:^4.0.0":
+  version: 4.12.0
+  resolution: "bn.js@npm:4.12.0"
+  checksum: 39afb4f15f4ea537b55eaf1446c896af28ac948fdcf47171961475724d1bb65118cca49fa6e3d67706e4790955ec0e74de584e45c8f1ef89f46c812bee5b5a12
   languageName: node
   linkType: hard
 
@@ -2110,6 +2171,32 @@ __metadata:
   languageName: node
   linkType: hard
 
+"connect-mongo@npm:^4.6.0":
+  version: 4.6.0
+  resolution: "connect-mongo@npm:4.6.0"
+  dependencies:
+    debug: ^4.3.1
+    kruptein: ^3.0.0
+  peerDependencies:
+    mongodb: ^4.1.0
+  checksum: be95b40bf52b8702b07ffde25d6ea5bc72cdb6a77ca82574e73f2519fa3c704681ba3ae631094d5786b480f897eec6318ee1154243c269376816b009530da871
+  languageName: node
+  linkType: hard
+
+"connect-typeorm@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "connect-typeorm@npm:2.0.0"
+  dependencies:
+    "@types/debug": 0.0.31
+    "@types/express-session": ^1.15.5
+    debug: ^4.1.1
+    express-session: ^1.15.6
+  peerDependencies:
+    typeorm: ^0.3.0
+  checksum: 48889a1b2c6031f7f643e92ecb9fcee9b2e20d4b6b4f98470ee66111a13caa4de93e5b17e9161f218026ba8d458a344088b8ebff2506eda3a0d3401541307b6b
+  languageName: node
+  linkType: hard
+
 "console-control-strings@npm:^1.1.0":
   version: 1.1.0
   resolution: "console-control-strings@npm:1.1.0"
@@ -2269,7 +2356,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.2, debug@npm:^4.3.3, debug@npm:^4.3.4":
+"debug@npm:4, debug@npm:^4.1.0, debug@npm:^4.1.1, debug@npm:^4.3.1, debug@npm:^4.3.2, debug@npm:^4.3.3, debug@npm:^4.3.4":
   version: 4.3.4
   resolution: "debug@npm:4.3.4"
   dependencies:
@@ -3233,7 +3320,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"express-session@npm:^1.17.3":
+"express-session@npm:^1.15.6, express-session@npm:^1.17.3":
   version: 1.17.3
   resolution: "express-session@npm:1.17.3"
   dependencies:
@@ -4182,6 +4269,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"kruptein@npm:^3.0.0":
+  version: 3.0.5
+  resolution: "kruptein@npm:3.0.5"
+  dependencies:
+    asn1.js: ^5.4.1
+  checksum: 109f9eee9589dd6f22f65614d6690678f427e47d0a0716657271de469d4a4fa9119c6f44e7de559a0bd21e5105978fb98f5271af654883c062c1c99223c1d445
+  languageName: node
+  linkType: hard
+
 "language-subtag-registry@npm:~0.3.2":
   version: 0.3.22
   resolution: "language-subtag-registry@npm:0.3.22"
@@ -4379,6 +4475,13 @@ __metadata:
   bin:
     mime: cli.js
   checksum: fef25e39263e6d207580bdc629f8872a3f9772c923c7f8c7e793175cee22777bbe8bba95e5d509a40aaa292d8974514ce634ae35769faa45f22d17edda5e8557
+  languageName: node
+  linkType: hard
+
+"minimalistic-assert@npm:^1.0.0":
+  version: 1.0.1
+  resolution: "minimalistic-assert@npm:1.0.1"
+  checksum: cc7974a9268fbf130fb055aff76700d7e2d8be5f761fb5c60318d0ed010d839ab3661a533ad29a5d37653133385204c503bfac995aaa4236f4e847461ea32ba7
   languageName: node
   linkType: hard
 
@@ -5541,7 +5644,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"safer-buffer@npm:>= 2.1.2 < 3, safer-buffer@npm:>= 2.1.2 < 3.0.0":
+"safer-buffer@npm:>= 2.1.2 < 3, safer-buffer@npm:>= 2.1.2 < 3.0.0, safer-buffer@npm:^2.1.0":
   version: 2.1.2
   resolution: "safer-buffer@npm:2.1.2"
   checksum: cab8f25ae6f1434abee8d80023d7e72b598cf1327164ddab31003c51215526801e40b66c5e65d658a0af1e9d6478cadcb4c745f4bd6751f97d8644786c0978b0

@@ -4,7 +4,7 @@ import ExpressApp from '../app';
 import { RouterInterface } from '../interfaces/router';
 import AuthController from '../controllers/auth.controller';
 
-export default class AuthRoute implements RouterInterface {
+class AuthRoute implements RouterInterface {
   public path?: string = '/auth';
 
   public router: Router = Router();
@@ -16,5 +16,8 @@ export default class AuthRoute implements RouterInterface {
   constructor() {
     this.router.post('/register', [this.authController.register]);
     this.router.post('/login', [this.authController.login]);
+    this.router.get('/logout', [this.authController.logout]);
   }
 }
+
+export default AuthRoute;
