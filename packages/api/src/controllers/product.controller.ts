@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { ProductDTO, GetProductDTO, UpdateProductDTO } from 'src/dtos/product.dto';
+import { ProductDTO, GetProductDTO, UpdateProductDTO } from '../dtos/product.dto';
 import ProductService from '../services/product.service';
 
 class ProductController {
