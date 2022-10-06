@@ -26,5 +26,6 @@ module.exports = {
     'react/function-component-definition': 'off',
     'max-classes-per-file': 'off',
     'class-methods-use-this': 'off',
+    'react/jsx-props-no-spreading': 'off',
   },
 };

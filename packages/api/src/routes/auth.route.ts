@@ -16,7 +16,7 @@ class AuthRoute implements RouterInterface {
   constructor() {
     this.router.post('/register', [this.authController.register]);
     this.router.post('/login', [this.authController.login]);
-    this.router.get('/logout', [this.authController.logout]);
+    this.router.post('/logout', [this.authController.logout]);
   }
 }
 

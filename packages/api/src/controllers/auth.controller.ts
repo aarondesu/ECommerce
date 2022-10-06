@@ -1,5 +1,3 @@
-/* eslint-disable consistent-return */
-/* eslint-disable @typescript-eslint/no-unsafe-call */
 import { Response, Request, NextFunction } from 'express';
 import passport from 'passport';
 
@@ -9,7 +7,6 @@ import { CreateUserDTO } from '../dtos/users.dto';
 import HTTPException from '../exceptions/HTTPException';
 
 import '../strategies/local.strategy';
-import logger from '../lib/logger';
 
 passport.serializeUser((user: Users, done) => done(undefined, user));
 passport.deserializeUser((user: Users, done) => done(undefined, user));
@@ -29,24 +26,25 @@ export default class AuthController {
   };
 
   public login = (req: Request, res: Response, next: NextFunction) => {
+    // eslint-disable-next-line @typescript-eslint/no-unsafe-call, consistent-return
     passport.authenticate('local', (error: Error, user: Users) => {
       if (error) return next(error);
       if (!user) {
         next(new HTTPException(409, 'Invalid credentials'));
+      } else {
+        req.login(user, (err) => {
+          if (err) return next(err);
+
+          return res.status(200).json(user);
+        });
       }
-
-      req.login(user, (err) => {
-        if (err) return next(err);
-
-        return res.status(200).json(user);
-      });
     })(req, res, next);
   };
 
-  public logout = (req: Request, res: Response) => {
-    logger.info('Test');
-    req.logOut(() => {
-      res.status(301).redirect('/');
+  public logout = (req: Request, res: Response, next: NextFunction) => {
+    req.session.destroy((error) => {
+      if (error) return next(error);
+      return res.status(301).json('logout');
     });
   };
 }
