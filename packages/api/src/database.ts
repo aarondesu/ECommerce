@@ -7,7 +7,7 @@ import Carts from './entities/cart.entity';
 import Orders from './entities/order.entity';
 import Reviews from './entities/review.entity';
 
-const AppDataSource = new DataSource({
+const datasource = new DataSource({
   type: 'mongodb',
   url: MONGO_URL,
   logging: true,
@@ -15,4 +15,4 @@ const AppDataSource = new DataSource({
   entities: [Users, Products, Carts, Orders, Reviews],
 });
 
-export default AppDataSource;
+export default datasource;
