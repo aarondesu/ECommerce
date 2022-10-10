@@ -6,6 +6,7 @@ import {
   ManyToOne,
   ObjectID,
   ObjectIdColumn,
+  PrimaryColumn,
 } from 'typeorm';
 
 import Products from './product.entity';
@@ -14,7 +15,10 @@ import Users from './user.entity';
 @Entity()
 class Carts extends BaseEntity {
   @ObjectIdColumn()
-    id: ObjectID;
+    _id: ObjectID;
+
+  @PrimaryColumn('uuid')
+    id: string;
 
   @Column()
     total: number;

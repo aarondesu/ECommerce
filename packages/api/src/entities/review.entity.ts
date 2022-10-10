@@ -9,6 +9,7 @@ import {
   ObjectIdColumn,
   OneToOne,
   UpdateDateColumn,
+  PrimaryColumn,
 } from 'typeorm';
 import Products from './product.entity';
 import Users from './user.entity';
@@ -16,7 +17,10 @@ import Users from './user.entity';
 @Entity()
 class Reviews extends BaseEntity {
   @ObjectIdColumn()
-    id: ObjectID;
+    _id: ObjectID;
+
+  @PrimaryColumn('uuid')
+    id: string;
 
   @Column()
     desc: string;

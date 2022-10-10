@@ -8,6 +8,7 @@ import {
   ObjectIdColumn,
   OneToMany,
   UpdateDateColumn,
+  PrimaryColumn,
 } from 'typeorm';
 
 import Carts from './cart.entity';
@@ -16,7 +17,10 @@ import Reviews from './review.entity';
 @Entity()
 class Products extends BaseEntity {
   @ObjectIdColumn()
-    id: ObjectID;
+    _id: ObjectID;
+
+  @PrimaryColumn('uuid')
+    id: string;
 
   @Column()
     name: string;

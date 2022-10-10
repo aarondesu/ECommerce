@@ -7,6 +7,7 @@ import {
   ObjectIdColumn,
   OneToMany,
   OneToOne,
+  PrimaryColumn,
 } from 'typeorm';
 import Products from './product.entity';
 import Users from './user.entity';
@@ -14,12 +15,15 @@ import Users from './user.entity';
 @Entity()
 class Orders extends BaseEntity {
   @ObjectIdColumn()
-    id: ObjectID;
+    _id: ObjectID;
+
+  @PrimaryColumn('uuid')
+    id: string;
 
   @OneToMany(() => Products, (item) => item.id)
     items: Products[];
 
-  @OneToOne(() => Users, (user) => user.username)
+  @OneToOne(() => Users, (user) => user.id)
   @JoinColumn()
     user: Users;
 

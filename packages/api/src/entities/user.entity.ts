@@ -4,19 +4,24 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  ObjectID,
   ObjectIdColumn,
   OneToMany,
   OneToOne,
   UpdateDateColumn,
+  ObjectID,
+  PrimaryColumn,
 } from 'typeorm';
+
 import Carts from './cart.entity';
 import Orders from './order.entity';
 
 @Entity()
 class Users extends BaseEntity {
   @ObjectIdColumn()
-    id: ObjectID;
+    _id: ObjectID;
+
+  @PrimaryColumn('uuid')
+    id: string;
 
   @Column({ unique: true })
     username: string;
@@ -29,6 +34,9 @@ class Users extends BaseEntity {
 
   @Column({ default: false })
     isAdmin: boolean;
+
+  @Column()
+    imgUrl: string;
 
   @Column()
     firstName: string;
