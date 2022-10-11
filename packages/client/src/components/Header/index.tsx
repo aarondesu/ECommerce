@@ -40,12 +40,13 @@ function SearchBarButton() {
 function NavBar() {
   const { classes } = useStyles();
 
-  const { id } = useAppSelector((state) => state.authReducer);
+  const user = useAppSelector((state) => state.authReducer.user);
+
   const [opened, setOpened] = useState<boolean>(false);
 
   useEffect(() => {
     // TODO
-  }, [id]);
+  }, [user]);
 
   return (
     <>
@@ -107,7 +108,7 @@ function NavBar() {
                   rightSection={<DrawerSearchButton />}
                   size="xs"
                 />
-                {id === '' && <NavigationBasic />}
+                {user === null && <NavigationBasic />}
                 <ActionIcon radius="xl" variant="filled" component={Link} to="/account/cart">
                   <IconShoppingCart size={18} />
                 </ActionIcon>

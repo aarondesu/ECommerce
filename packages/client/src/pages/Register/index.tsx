@@ -1,51 +1,41 @@
-/* eslint-disable no-console */
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import {
-  Anchor,
-  AppShell,
-  Box,
-  Button,
-  Center,
-  Checkbox,
-  Overlay,
-  PasswordInput,
-  Popover,
-  Stack,
-  Text,
-  TextInput,
-  Title,
+  AppShell, Center, Box, LoadingOverlay,
 } from '@mantine/core';
 import { useEffect, useState } from 'react';
 import { useDocumentTitle } from '@mantine/hooks';
-import { Link, useNavigate } from 'react-router-dom';
-import { useForm } from '@mantine/form';
+import { useNavigate } from 'react-router-dom';
 
-import { useAppDispatch } from '../../redux/hooks';
+import { useAppDispatch, useAppSelector } from '../../redux/hooks';
 import { setCredentials } from '../../redux/reducers/auth.reducer';
 import { useRegisterMutation, RegisterRequest } from '../../redux/api/auth.api';
 import { APIError } from '../../interfaces/api.interface';
+import { useForm, FormProvider } from './Register.formContext';
+import RegisterForm from './Register.form';
 
 import useStyles from './Register.styles';
 import background from '../../assets/imgs/background.jpg';
-
-/*
-const requirements = [
-  { re: /[0-9]/, label: 'Includes number' },
-  { re: /[a-z]/, label: 'Includes lowercase letter' },
-  { re: /[A-Z]/, label: 'Includes uppercase letter' },
-];
-*/
 
 const Register = () => {
   useDocumentTitle('Register');
 
   const { classes } = useStyles();
 
-  const [register, { isSuccess }] = useRegisterMutation();
+  const [register] = useRegisterMutation();
   const [loading, setLoading] = useState(false);
   const [terms, setTerms] = useState(false);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const user = useAppSelector((state) => state.authReducer.user);
+
+  const regexPassword = (value: string): string => {
+    if (value.length < 6) return 'Password must be at least 6 characters';
+    if (!/^.*[a-z].*$/.test(value)) return 'Password must have at least 1 lower case letter';
+    if (!/^.*[A-Z].*$/.test(value)) return 'Password must have at least 1 upper case letter';
+    if (!/^.*[0-9].*$/.test(value)) return 'Password must have at least 1 number';
+    if (!/^.*[$&+,:;=?@#|'<>.^*()%!-].*$/.test(value)) return 'Password must have at least 1 special symbol';
+
+    return null;
+  };
 
   const form = useForm({
     initialValues: {
@@ -60,7 +50,7 @@ const Register = () => {
     validate: {
       username: (value) => (value.length < 4 ? 'Username must have at least 4 letters' : null),
       email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid Email'),
-      password: (value) => (value.length < 6 ? 'Password must have at least 6 in length' : null),
+      password: (value) => regexPassword(value),
       confirmPassword: (value, values) => (value !== values.password ? 'Passwords did not match' : null),
       firstName: (value) => (value.length < 2 ? 'First Name must have at least 2 letters' : null),
       lastName: (value) => (value.length < 2 ? 'Last Name must have at least 2 letters' : null),
@@ -68,11 +58,11 @@ const Register = () => {
   });
 
   useEffect(() => {
-    if (isSuccess) {
+    if (user !== null) {
       setLoading(false);
       navigate('/');
     }
-  }, [isSuccess]);
+  }, [user]);
 
   const handleForm = (): void => {
     if (form.values.termsOfService === false) {
@@ -84,8 +74,8 @@ const Register = () => {
     const result = register({ ...form.values } as RegisterRequest).unwrap();
 
     result
-      .then((user) => {
-        dispatch(setCredentials(user.user));
+      .then((response) => {
+        dispatch(setCredentials(response));
       })
       .catch((error) => {
         setLoading(false);
@@ -110,73 +100,15 @@ const Register = () => {
     >
       <Center className={classes.center}>
         <Box className={classes.container}>
-          {loading && <Overlay opacity={0.6} color="#000" zIndex={5} blur={2} />}
-          <form onSubmit={form.onSubmit(() => handleForm())}>
-            <Stack spacing="xl">
-              <Title order={2}>Create an Account</Title>
-              <TextInput
-                className={classes.input}
-                placeholder="Username"
-                {...form.getInputProps('username')}
-              />
-              <TextInput
-                className={classes.input}
-                placeholder="Email Address"
-                {...form.getInputProps('email')}
-              />
-              <TextInput
-                className={classes.input}
-                placeholder="First Name"
-                {...form.getInputProps('firstName')}
-              />
-              <TextInput
-                className={classes.input}
-                placeholder="Last Name"
-                {...form.getInputProps('lastName')}
-              />
-              <PasswordInput
-                className={classes.input}
-                withAsterisk
-                placeholder="Password"
-                {...form.getInputProps('password')}
-              />
-              <PasswordInput
-                className={classes.input}
-                withAsterisk
-                placeholder="Confirm Password"
-                {...form.getInputProps('confirmPassword')}
-              />
-              <Popover width={300} position="right-end" withArrow shadow="md" opened={terms}>
-                <Popover.Target>
-                  <Checkbox
-                    size="xs"
-                    label={(
-                      <>
-                        By accepting, I agree to the
-                        {' '}
-                        <b>Terms and Conditions</b>
-                      </>
-                    )}
-                    {...form.getInputProps('termsOfService', { type: 'checkbox' })}
-                  />
-                </Popover.Target>
-                <Popover.Dropdown onMouseOver={() => setTerms(false)}>
-                  <Text>Please accept terms of service in order to continue.</Text>
-                </Popover.Dropdown>
-              </Popover>
-              <Button variant="filled" type="submit" loading={loading}>
-                Register
-              </Button>
-              <Text size="sm">
-                Already have an account?
-                {' '}
-                <Anchor component={Link} to="/account/login">
-                  {' '}
-                  Sign in
-                </Anchor>
-              </Text>
-            </Stack>
-          </form>
+          <LoadingOverlay color="#000" overlayBlur={2} visible={loading} />
+          <FormProvider form={form}>
+            <RegisterForm
+              handleForm={handleForm}
+              loading={loading}
+              terms={terms}
+              setTerms={setTerms}
+            />
+          </FormProvider>
         </Box>
       </Center>
     </AppShell>

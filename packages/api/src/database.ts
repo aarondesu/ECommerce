@@ -9,6 +9,7 @@ import Carts from './entities/cart.entity';
 import Orders from './entities/order.entity';
 import Reviews from './entities/review.entity';
 import Sessions from './entities/session.entity';
+import Categories from './entities/category.entity';
 
 const datasource = new DataSource({
   type: 'postgres',
@@ -19,7 +20,7 @@ const datasource = new DataSource({
   port: Number(DB_PORT),
   logging: NODE_ENV === 'development' ? true : ['error'], // Only log errors on production
   synchronize: true,
-  entities: [Users, Products, Carts, Orders, Reviews, Sessions],
+  entities: [Users, Products, Carts, Orders, Reviews, Sessions, Categories],
 });
 
 export default datasource;

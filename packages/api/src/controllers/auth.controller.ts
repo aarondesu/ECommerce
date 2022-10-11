@@ -12,7 +12,7 @@ import { JWT_SECRET_KEY } from '../config';
 
 passport.serializeUser((user: Users, done) => done(undefined, user.id));
 passport.deserializeUser((id: string, done) => {
-  const result = Users.findOne({ where: { id } });
+  const result = Users.findOneBy({ id });
 
   result
     .then((user) => {

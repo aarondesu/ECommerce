@@ -1,4 +1,3 @@
-/* eslint-disable @typescript-eslint/no-misused-promises */
 import {
   Anchor,
   AppShell,
@@ -11,7 +10,7 @@ import {
   Stack,
   TextInput,
   Title,
-  Overlay,
+  LoadingOverlay,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useEffect, useState } from 'react';
@@ -34,7 +33,7 @@ const Login = () => {
   const [loading, setLoading] = useState(false);
   const [login] = useLoginMutation();
   const dispatch = useAppDispatch();
-  const uId = useAppSelector((state) => state.authReducer.id);
+  const user = useAppSelector((state) => state.authReducer.user);
   const navigate = useNavigate();
 
   const form = useForm({
@@ -49,19 +48,19 @@ const Login = () => {
   });
 
   useEffect(() => {
-    if (uId !== '') {
+    if (user !== null) {
       setLoading(false);
       navigate('/');
     }
-  }, [uId]);
+  }, [user]);
 
   const handleSubmit = (): void => {
     setLoading(true);
     const result = login({ ...form.values } as LoginRequest).unwrap();
 
     result
-      .then(({ user }) => {
-        dispatch(setCredentials(user));
+      .then((response) => {
+        dispatch(setCredentials(response));
       })
       .catch((error) => {
         setLoading(false);
@@ -98,7 +97,7 @@ const Login = () => {
     >
       <Center className={classes.center}>
         <Box className={classes.container}>
-          {loading && <Overlay opacity={0.5} color="#000" blur={2} />}
+          <LoadingOverlay color="#000" overlayBlur={2} visible={loading} />
           <form onSubmit={form.onSubmit(() => handleSubmit())}>
             <Stack spacing="xl">
               <Title order={2}>Sign In</Title>
@@ -112,7 +111,7 @@ const Login = () => {
                 placeholder="Password"
                 {...form.getInputProps('password')}
               />
-              <Checkbox label="Keep me signed in" />
+              <Checkbox size="sm" label={<>Keep me signed in</>} />
               <Button variant="filled" type="submit">
                 Login
               </Button>
