@@ -1,6 +1,5 @@
 import {
   ActionIcon,
-  Anchor,
   Group,
   Header,
   MediaQuery,
@@ -13,12 +12,18 @@ import {
   ThemeIcon,
 } from '@mantine/core';
 import {
-  IconCashBanknote, IconSearch, IconShoppingCart, IconUser, IconUserPlus,
+  IconCashBanknote,
+  IconSearch,
+  IconShoppingCart,
+  IconUser,
+  IconUserPlus,
 } from '@tabler/icons';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
+import NavigationBasic from './Navigation.basic';
 import useStyles from './Header.styles';
+import { useAppSelector } from '../../redux/hooks';
 
 function DrawerSearchButton() {
   return (
@@ -35,7 +40,12 @@ function SearchBarButton() {
 function NavBar() {
   const { classes } = useStyles();
 
+  const { id } = useAppSelector((state) => state.authReducer);
   const [opened, setOpened] = useState<boolean>(false);
+
+  useEffect(() => {
+    // TODO
+  }, [id]);
 
   return (
     <>
@@ -48,9 +58,24 @@ function NavBar() {
         title={<SearchBarButton />}
       >
         <Box>
-          <NavLink label="Cart" component={Link} to="/account/cart" icon={<IconShoppingCart size={16} />} />
-          <NavLink label="Sign In" component={Link} to="/account/login" icon={<IconUser size={16} />} />
-          <NavLink label="Register" component={Link} to="/account/register" icon={<IconUserPlus size={16} />} />
+          <NavLink
+            label="Cart"
+            component={Link}
+            to="/account/cart"
+            icon={<IconShoppingCart size={16} />}
+          />
+          <NavLink
+            label="Sign In"
+            component={Link}
+            to="/account/login"
+            icon={<IconUser size={16} />}
+          />
+          <NavLink
+            label="Register"
+            component={Link}
+            to="/account/register"
+            icon={<IconUserPlus size={16} />}
+          />
         </Box>
       </Drawer>
 
@@ -75,16 +100,14 @@ function NavBar() {
 
           <MediaQuery query="(max-width: 700px)" styles={{ display: 'none' }}>
             <Group spacing="md" position="apart" grow>
-              <Box>
-                <TextInput placeholder="Search Products..." rightSection={<DrawerSearchButton />} size="xs" />
-              </Box>
               <Group spacing="md" position="right">
-                <Anchor variant="text" component={Link} to="/account/register">
-                  Register
-                </Anchor>
-                <Anchor variant="text" component={Link} to="/account/login">
-                  Sign In
-                </Anchor>
+                <TextInput
+                  className={classes.searchBar}
+                  placeholder="Search Products..."
+                  rightSection={<DrawerSearchButton />}
+                  size="xs"
+                />
+                {id === '' && <NavigationBasic />}
                 <ActionIcon radius="xl" variant="filled" component={Link} to="/account/cart">
                   <IconShoppingCart size={18} />
                 </ActionIcon>

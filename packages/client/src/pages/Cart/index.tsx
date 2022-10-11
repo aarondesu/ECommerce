@@ -1,5 +1,15 @@
 import {
-  AppShell, Box, Button, Grid, Group, Image, NumberInput, Stack, Table, Text, Title,
+  AppShell,
+  Box,
+  Button,
+  Grid,
+  Group,
+  Image,
+  NumberInput,
+  Stack,
+  Table,
+  Text,
+  Title,
 } from '@mantine/core';
 import { IconShoppingCart } from '@tabler/icons';
 
@@ -10,10 +20,20 @@ import useStyles from './Cart.styles';
 
 const tableData = [
   {
-    id: 1, item: 'Item 1', size: 'xs', img: 'https://cdn.pixabay.com/photo/2016/11/23/06/57/isolated-t-shirt-1852114_960_720.png', qty: 1, price: 150,
+    id: 1,
+    item: 'Item 1',
+    size: 'xs',
+    img: 'https://cdn.pixabay.com/photo/2016/11/23/06/57/isolated-t-shirt-1852114_960_720.png',
+    qty: 1,
+    price: 150,
   },
   {
-    id: 2, item: 'Item 2', size: 's', img: 'https://cdn.pixabay.com/photo/2016/11/23/06/57/isolated-t-shirt-1852114_960_720.png', qty: 2, price: 25,
+    id: 2,
+    item: 'Item 2',
+    size: 's',
+    img: 'https://cdn.pixabay.com/photo/2016/11/23/06/57/isolated-t-shirt-1852114_960_720.png',
+    qty: 2,
+    price: 25,
   },
 ];
 
@@ -27,11 +47,7 @@ function Cart() {
       <tr key={data.id}>
         <td>
           <Group>
-            <Image
-              src={data.img}
-              width={100}
-              height={100}
-            />
+            <Image src={data.img} width={100} height={100} />
             <Stack spacing="xs">
               <Text>
                 <b>Product Name:</b>
@@ -66,6 +82,7 @@ function Cart() {
 
   return (
     <AppShell
+      fixed={false}
       header={<Header />}
       footer={<Footer />}
       styles={(theme) => ({

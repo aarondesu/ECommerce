@@ -8,7 +8,6 @@ export default createStyles((theme) => ({
   container: {
     padding: theme.spacing.xl,
     backgroundColor: 'white',
-    width: 650,
   },
   terms: {
     fontSize: 12,
@@ -18,8 +17,8 @@ export default createStyles((theme) => ({
     width: 400,
 
     '@media (min-width:320px) and (max-width:425px)': {
-      width: 300,
-      minWidth: 300,
+      minWidth: 100,
+      maxWidth: 320,
     },
   },
 }));

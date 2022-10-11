@@ -4,4 +4,7 @@ export default createStyles((theme) => ({
   header: {
     minWidth: 425,
   },
+  searchBar: {
+    width: 300,
+  },
 }));
