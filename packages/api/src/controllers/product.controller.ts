@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
-import { ProductDTO, GetProductDTO, UpdateProductDTO } from '../dtos/product.dto';
+import { ProductDTO } from '../dtos/product.dto';
 import ProductService from '../services/product.service';
 
 class ProductController {
@@ -18,7 +18,7 @@ class ProductController {
 
   get = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const getProdDTO = req.body as GetProductDTO;
+      const getProdDTO = req.body as ProductDTO;
       const product = await this.productService.findOne(getProdDTO);
 
       res.status(200).json(product);
@@ -29,7 +29,7 @@ class ProductController {
 
   update = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const updateProdDTO = req.body as UpdateProductDTO;
+      const updateProdDTO = req.body as ProductDTO;
       const product = await this.productService.update(updateProdDTO);
 
       res.status(200).json(product);
@@ -40,7 +40,7 @@ class ProductController {
 
   remove = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const getProdDTO = req.body as GetProductDTO;
+      const getProdDTO = req.body as ProductDTO;
       await this.productService.remove(getProdDTO);
 
       res.status(200).json('deleted');

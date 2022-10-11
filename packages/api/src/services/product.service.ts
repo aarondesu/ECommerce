@@ -1,7 +1,7 @@
 import { isEmpty } from 'class-validator';
 
 import HTTPException from '../exceptions/HTTPException';
-import { ProductDTO, GetProductDTO, UpdateProductDTO } from '../dtos/product.dto';
+import { ProductDTO } from '../dtos/product.dto';
 import Products from '../entities/product.entity';
 
 class ProductService {
@@ -15,7 +15,7 @@ class ProductService {
     return product;
   };
 
-  findOne = async (getProdDTO: GetProductDTO): Promise<Products> => {
+  findOne = async (getProdDTO: ProductDTO): Promise<Products> => {
     if (isEmpty(getProdDTO)) throw new HTTPException(401, 'CreateProductTDO is empty!');
 
     const findProduct = await Products.findOne({ where: { id: getProdDTO.id } });
@@ -30,7 +30,7 @@ class ProductService {
     return findProducts;
   };
 
-  update = async (updateProdDTO: UpdateProductDTO): Promise<Products> => {
+  update = async (updateProdDTO: ProductDTO): Promise<Products> => {
     if (isEmpty(updateProdDTO)) throw new HTTPException(401, 'CreateProductTDO is empty!');
 
     const findProduct = await Products.findOne({ where: { id: updateProdDTO.id } });
@@ -42,8 +42,10 @@ class ProductService {
     return product;
   };
 
-  remove = async (getProdDTO: GetProductDTO): Promise<void> => {
+  remove = async (getProdDTO: ProductDTO): Promise<void> => {
     const product = await this.findOne(getProdDTO);
+    if (!product) throw new HTTPException(404, 'Product does not exist!');
+
     await product.remove();
   };
 }

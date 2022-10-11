@@ -1,7 +1,9 @@
 import { IsNumber, IsString } from 'class-validator';
-import { ObjectID } from 'typeorm';
 
 class ProductDTO {
+  @IsString()
+    id: string;
+
   @IsString()
     name: string;
 
@@ -15,14 +17,6 @@ class ProductDTO {
     price: number;
 }
 
-class GetProductDTO {
-  @IsString()
-    id: ObjectID;
-}
+class Test {}
 
-class UpdateProductDTO extends ProductDTO {
-  @IsString()
-    id: ObjectID;
-}
-
-export { ProductDTO, GetProductDTO, UpdateProductDTO };
+export { ProductDTO, Test };

@@ -5,21 +5,16 @@ import {
   Entity,
   JoinColumn,
   ManyToOne,
-  ObjectID,
-  ObjectIdColumn,
   OneToOne,
   UpdateDateColumn,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import Products from './product.entity';
 import Users from './user.entity';
 
 @Entity()
 class Reviews extends BaseEntity {
-  @ObjectIdColumn()
-    _id: ObjectID;
-
-  @PrimaryColumn('uuid')
+  @PrimaryGeneratedColumn('uuid')
     id: string;
 
   @Column()

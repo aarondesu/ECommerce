@@ -3,21 +3,16 @@ import {
   Column,
   Entity,
   JoinColumn,
-  ObjectID,
-  ObjectIdColumn,
   OneToMany,
   OneToOne,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 import Products from './product.entity';
 import Users from './user.entity';
 
 @Entity()
 class Orders extends BaseEntity {
-  @ObjectIdColumn()
-    _id: ObjectID;
-
-  @PrimaryColumn('uuid')
+  @PrimaryGeneratedColumn('uuid')
     id: string;
 
   @OneToMany(() => Products, (item) => item.id)

@@ -3,15 +3,16 @@ module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
     tsconfigRootDir: __dirname,
-    project: ['./tsconfig.eslint.json', 'packages/*/tsconfig.json'],
+    project: ['./tsconfig.eslint.json', './packages/*/tsconfig.json'],
   },
-  plugins: ['@typescript-eslint'],
+  plugins: ['@typescript-eslint', 'mocha'],
   extends: [
     'airbnb',
     'airbnb-typescript',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
     'plugin:@typescript-eslint/recommended-requiring-type-checking',
+    'plugin:mocha/recommended',
   ],
   rules: {
     'no-consoles': 'off',

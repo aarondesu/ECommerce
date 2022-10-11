@@ -1,12 +1,5 @@
 import {
-  BaseEntity,
-  Column,
-  Entity,
-  JoinColumn,
-  ManyToOne,
-  ObjectID,
-  ObjectIdColumn,
-  PrimaryColumn,
+  BaseEntity, Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import Products from './product.entity';
@@ -14,10 +7,7 @@ import Users from './user.entity';
 
 @Entity()
 class Carts extends BaseEntity {
-  @ObjectIdColumn()
-    _id: ObjectID;
-
-  @PrimaryColumn('uuid')
+  @PrimaryGeneratedColumn('uuid')
     id: string;
 
   @Column()

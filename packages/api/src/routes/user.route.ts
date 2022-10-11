@@ -14,6 +14,10 @@ class UserRoute implements RouterInterface {
   userController: UserController = new UserController();
 
   constructor() {
+    /**
+     * Gets user information
+     * /api/user/:userId
+     */
     this.router.get('/:id', [this.userController.get]);
     // this.router.post('/update/:id', [this.userController.update]);
   }

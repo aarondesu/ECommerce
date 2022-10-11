@@ -4,11 +4,9 @@ import {
   CreateDateColumn,
   Entity,
   JoinColumn,
-  ObjectID,
-  ObjectIdColumn,
   OneToMany,
   UpdateDateColumn,
-  PrimaryColumn,
+  PrimaryGeneratedColumn,
 } from 'typeorm';
 
 import Carts from './cart.entity';
@@ -16,10 +14,7 @@ import Reviews from './review.entity';
 
 @Entity()
 class Products extends BaseEntity {
-  @ObjectIdColumn()
-    _id: ObjectID;
-
-  @PrimaryColumn('uuid')
+  @PrimaryGeneratedColumn('uuid')
     id: string;
 
   @Column()

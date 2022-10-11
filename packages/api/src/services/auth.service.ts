@@ -1,4 +1,4 @@
-import { isEmpty } from 'class-validator';
+import { isEmail, isEmpty } from 'class-validator';
 import CryptoJS from 'crypto-js';
 
 import { CreateUserDTO, LoginUserDto } from '../dtos/users.dto';
@@ -11,10 +11,11 @@ class AuthService {
     if (isEmpty(userData)) throw new HTTPException(400, 'userData is empty');
 
     const findUsername: Users = await Users.findOne({ where: { username: userData.username } });
-    if (findUsername) throw new HTTPException(409, `This username ${userData.username} aleady exists.`);
+    if (findUsername) throw new HTTPException(409, `Username "${userData.username}" aleady exists.`);
 
+    if (!isEmail(userData.email)) throw new HTTPException(409, 'Email invalid');
     const findEmail: Users = await Users.findOne({ where: { email: userData.email } });
-    if (findEmail) throw new HTTPException(409, `This email ${userData.email} already exists!`);
+    if (findEmail) throw new HTTPException(409, `Email "${userData.email}" already exists.`);
 
     const hashedPassword = CryptoJS.AES.encrypt(userData.password, PASSWORD_SECRET_KEY).toString();
     const createUserData: Users = await Users.create({
