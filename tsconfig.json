@@ -23,5 +23,5 @@
     "resolveJsonModule": true,
     "skipLibCheck": true
   },
-  "exclude": ["node_modules", "dist", "*.d.ts"]
+  "exclude": ["node_modules", "dist", "build", "*.d.ts"]
 }

@@ -10,7 +10,10 @@
     "format": "yarn lint --fix",
     "clean": "yarn workspaces foreach yarn run clean",
     "build": "yarn workspaces foreach yarn run build",
-    "start": "yarn workspace @ecommerce/client start"
+    "start": "yarn workspace @ecommerce/client start",
+    "watch:api": "yarn workspace @ecommerce/api watch",
+    "watch:client": "yarn workspace @ecommerce/client watch",
+    "watch": "conccurently \"yarn watch:api\" \"yarn watch:client\""
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^5.13.0",
@@ -32,6 +35,7 @@
     "typescript": "*"
   },
   "dependencies": {
+    "concurrently": "^7.4.0",
     "cross-env": "^7.0.3"
   }
 }

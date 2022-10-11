@@ -6,6 +6,7 @@ import passport from 'passport';
 import { Logger } from 'pino';
 import { DataSource } from 'typeorm';
 import { TypeormStore } from 'connect-typeorm';
+import helmet from 'helmet';
 
 import AppDataSource from './database';
 import { RouterInterface } from './interfaces/router';
@@ -58,6 +59,7 @@ class ExpressApp {
 
     this.app.use(express.json());
     this.app.use(cors({ origin: '*', credentials: true }));
+    this.app.use(helmet());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(
       session({
