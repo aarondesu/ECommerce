@@ -37,6 +37,9 @@ Make sure to clean the project in every build to remove unnecessary artifacts
 
 ## Running
 
+Before starting the project, make sure to install dependencies using :
+`yarn install`
+
 ### Development
 
 To `watch` the project ( Concurrently runs both projects at the same terminal - not recommended ):
