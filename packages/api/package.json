@@ -6,7 +6,7 @@
     "test": "mocha --require ts-node/register --extensions ts --watch --watch-files src 'src/__tests__/**/*.ts'",
     "clean": "npx rimraf dist",
     "build": "tsc --build .",
-    "watch": "cross-env NODE_ENV=development nodemon src/index.ts",
+    "watch": "nodemon src/index.ts",
     "start": "cross-env NODE_ENV=production node ."
   },
   "dependencies": {

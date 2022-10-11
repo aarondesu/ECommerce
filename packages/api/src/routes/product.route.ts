@@ -29,11 +29,16 @@ class ProductRoute implements RouterInterface {
      */
     this.router.get('/:id', [this.productController.get]);
     /**
+     * Gets products list based on limit and page
+     * /api/products/:limit/:page
+     */
+    this.router.get('/:limit/:page', [this.productController.getByPagination]);
+    /**
      * Updates product information
      * /api/products/update/:productId
      */
     this.router.post(
-      '/update/:id',
+      '/update/',
       [passport.authenticate('jwt', { session: false })],
       [this.productController.update],
     );

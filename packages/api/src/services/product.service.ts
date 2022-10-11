@@ -15,10 +15,8 @@ class ProductService {
     return product;
   };
 
-  findOne = async (getProdDTO: ProductDTO): Promise<Products> => {
-    if (isEmpty(getProdDTO)) throw new HTTPException(401, 'CreateProductTDO is empty!');
-
-    const findProduct = await Products.findOne({ where: { id: getProdDTO.id } });
+  findOne = async (id: string): Promise<Products> => {
+    const findProduct = await Products.findOneBy({ id });
     if (!findProduct) throw new HTTPException(404, 'Product does not exist!');
 
     return findProduct;
@@ -28,6 +26,16 @@ class ProductService {
     const findProducts = await Products.find();
 
     return findProducts;
+  };
+
+  findAllByPagination = async (limit: number, page: number): Promise<Products[]> => {
+    let queryBuilder = Products.createQueryBuilder();
+
+    const skip = limit * page - limit;
+    queryBuilder = queryBuilder.skip(skip).take(limit);
+
+    const { entities } = await queryBuilder.getRawAndEntities();
+    return entities;
   };
 
   update = async (updateProdDTO: ProductDTO): Promise<Products> => {
@@ -42,8 +50,8 @@ class ProductService {
     return product;
   };
 
-  remove = async (getProdDTO: ProductDTO): Promise<void> => {
-    const product = await this.findOne(getProdDTO);
+  remove = async (id: string): Promise<void> => {
+    const product = await this.findOne(id);
     if (!product) throw new HTTPException(404, 'Product does not exist!');
 
     await product.remove();

@@ -17,7 +17,7 @@ const datasource = new DataSource({
   password: DB_PASSWORD,
   database: DB_NAME,
   port: Number(DB_PORT),
-  logging: NODE_ENV === 'development',
+  logging: NODE_ENV === 'development' ? true : ['error'], // Only log errors on production
   synchronize: true,
   entities: [Users, Products, Carts, Orders, Reviews, Sessions],
 });

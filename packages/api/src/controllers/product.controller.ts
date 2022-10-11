@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import logger from '../lib/logger';
 import { ProductDTO } from '../dtos/product.dto';
 import ProductService from '../services/product.service';
 
@@ -18,8 +19,8 @@ class ProductController {
 
   get = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const getProdDTO = req.body as ProductDTO;
-      const product = await this.productService.findOne(getProdDTO);
+      const { id } = req.params;
+      const product = await this.productService.findOne(id);
 
       res.status(200).json(product);
     } catch (error) {
@@ -27,9 +28,25 @@ class ProductController {
     }
   };
 
+  getByPagination = async (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const { limit, page } = req.params;
+
+      const products = await this.productService.findAllByPagination(Number(limit), Number(page));
+
+      res.status(200).json(products);
+    } catch (error) {
+      next(error);
+    }
+  };
+
   update = async (req: Request, res: Response, next: NextFunction) => {
     try {
+      logger.info(req.body);
+
       const updateProdDTO = req.body as ProductDTO;
+      logger.info(updateProdDTO.id);
+
       const product = await this.productService.update(updateProdDTO);
 
       res.status(200).json(product);
@@ -40,8 +57,8 @@ class ProductController {
 
   remove = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      const getProdDTO = req.body as ProductDTO;
-      await this.productService.remove(getProdDTO);
+      const { id } = req.params;
+      await this.productService.remove(id);
 
       res.status(200).json('deleted');
     } catch (error) {

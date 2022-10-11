@@ -26,16 +26,16 @@ class Products extends BaseEntity {
   @Column()
     img: string;
 
-  @Column()
+  @Column({ nullable: true })
     quantity: number;
 
-  @Column()
+  @Column({ nullable: true })
     categories: string;
 
-  @Column()
+  @Column({ nullable: true })
     size: string;
 
-  @Column()
+  @Column({ nullable: true })
     color: string;
 
   @Column()

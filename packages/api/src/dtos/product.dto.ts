@@ -17,6 +17,10 @@ class ProductDTO {
     price: number;
 }
 
-class Test {}
+class ProductPageDTO {
+  limit: number;
 
-export { ProductDTO, Test };
+  page: number;
+}
+
+export { ProductDTO, ProductPageDTO };
