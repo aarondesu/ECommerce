@@ -13,6 +13,12 @@ import {
 import Carts from './cart.entity';
 import Orders from './order.entity';
 
+enum UserRole {
+  ADMIN = 'admin',
+  MOD = 'mod',
+  USER = 'user',
+}
+
 @Entity()
 class Users extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
@@ -27,8 +33,8 @@ class Users extends BaseEntity {
   @Column({ unique: true })
     email: string;
 
-  @Column({ default: false })
-    isAdmin: boolean;
+  @Column({ type: 'enum', enum: UserRole, default: UserRole.USER })
+    role: UserRole;
 
   @Column({ nullable: true })
     imgUrl: string;
@@ -55,3 +61,4 @@ class Users extends BaseEntity {
 }
 
 export default Users;
+export { UserRole };

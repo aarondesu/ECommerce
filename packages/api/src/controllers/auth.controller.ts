@@ -5,7 +5,7 @@ import passport from 'passport';
 import jwt from 'jsonwebtoken';
 
 import AuthService from '../services/auth.service';
-import Users from '../entities/user.entity';
+import Users, { UserRole } from '../entities/user.entity';
 import { CreateUserDTO, LoginUserDto } from '../dtos/users.dto';
 import HTTPException from '../exceptions/HTTPException';
 import { JWT_SECRET_KEY } from '../config';
@@ -90,6 +90,20 @@ export default class AuthController {
       });
     } else {
       res.status(400).json('No user is logged in!');
+    }
+  };
+
+  public isAuthorized = (req: Request, res: Response, next: NextFunction) => {
+    try {
+      const user = req.user as Users;
+
+      if (user.role === UserRole.ADMIN) {
+        return res.status(200).json('Ok');
+      }
+
+      return res.status(401).json('Unauthorized');
+    } catch (error) {
+      return next(error);
     }
   };
 }

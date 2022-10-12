@@ -21,8 +21,8 @@ passport.use(
       .findOne({ where: { id: payload.id } })
       .then((user) => {
         if (user) {
-          const { id, username, isAdmin } = user;
-          return done(null, { id, username, isAdmin });
+          const { id, username, role } = user;
+          return done(null, { id, username, role });
         }
 
         return done(null, false);

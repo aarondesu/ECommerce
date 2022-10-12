@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import ExpressApp from 'src/app';
 
 import UserController from '../controllers/user.controller';
 import { RouterInterface } from '../interfaces/router';
@@ -8,8 +7,6 @@ class UserRoute implements RouterInterface {
   path?: string = '/users';
 
   router: Router = Router();
-
-  app: ExpressApp;
 
   userController: UserController = new UserController();
 

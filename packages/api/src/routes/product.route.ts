@@ -1,6 +1,5 @@
 import { Router } from 'express';
 import passport from 'passport';
-import ExpressApp from 'src/app';
 import ProductController from '../controllers/product.controller';
 import { RouterInterface } from '../interfaces/router';
 
@@ -8,8 +7,6 @@ class ProductRoute implements RouterInterface {
   path?: string = '/products';
 
   router: Router = Router();
-
-  app: ExpressApp;
 
   productController: ProductController = new ProductController();
 
