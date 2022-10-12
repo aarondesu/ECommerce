@@ -41,7 +41,7 @@ function ProductListing({
       withBorder={withBorder}
       p="md"
       component="a"
-      href={`/product/${id}`}
+      href={`/products/product/${id}`}
     >
       <Card.Section>
         <Image src={imgUrl} width={200} height={170} fit="contain" />

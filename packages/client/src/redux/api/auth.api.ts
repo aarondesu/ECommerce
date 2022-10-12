@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { RootState } from '../store';
 
 export interface User {
   id: string;
@@ -7,6 +8,10 @@ export interface User {
 
 export interface UserResponse {
   user: User;
+  token: string;
+}
+
+export interface AuthorizationRequest {
   token: string;
 }
 
@@ -25,7 +30,18 @@ export interface RegisterRequest {
 
 export const authApi = createApi({
   reducerPath: 'authApi',
-  baseQuery: fetchBaseQuery({ baseUrl: 'http://localhost:3001/api/auth' }),
+  baseQuery: fetchBaseQuery({
+    baseUrl: 'http://localhost:3001/api/auth',
+    prepareHeaders: (headers, { getState }) => {
+      const { token } = (getState() as RootState).authReducer;
+
+      if (token !== '') {
+        headers.set('authorization', token);
+      }
+
+      return headers;
+    },
+  }),
   endpoints: (builder) => ({
     register: builder.mutation<UserResponse, RegisterRequest>({
       query: (formData) => ({ url: 'register', method: 'post', body: formData }),
@@ -37,13 +53,13 @@ export const authApi = createApi({
         body: credentials,
       }),
     }),
-    logout: builder.mutation({
+    authorize: builder.query<string, void>({
       query: () => ({
-        url: 'logout',
+        url: 'authorized',
         method: 'POST',
       }),
     }),
   }),
 });
 
-export const { useRegisterMutation, useLoginMutation, useLogoutMutation } = authApi;
+export const { useRegisterMutation, useLoginMutation, useAuthorizeQuery } = authApi;

@@ -1,12 +1,12 @@
 import { createStyles } from '@mantine/core';
 
 export default createStyles((theme) => ({
-  container: {
-    maxWidth: 1400,
-  },
   productContainer: {
     backgroundColor: 'white',
     padding: theme.spacing.lg,
+  },
+  description: {
+    minHeight: 200,
   },
   infoContainer: {
     maxWidth: 1400,

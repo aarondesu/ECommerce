@@ -50,7 +50,7 @@ const Login = () => {
   useEffect(() => {
     if (user !== null) {
       setLoading(false);
-      navigate('/');
+      navigate(-1);
     }
   }, [user]);
 

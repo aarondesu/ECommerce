@@ -1,4 +1,5 @@
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+/* eslint-disable no-console */
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Landing from './pages/Landing';
 import Login from './pages/Login';
@@ -7,23 +8,57 @@ import Cart from './pages/Cart';
 import Product from './pages/Product';
 import Category from './pages/Category';
 import Page404 from './pages/Page404';
+import Dashboard from './pages/Dashboard';
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Routes>
-        <Route index element={<Landing />} />
-        <Route path="category/:categoryId" element={<Category />} />
-        <Route path="product/:productId" element={<Product />} />
-        <Route path="/account">
-          <Route path="cart" element={<Cart />} />
-          <Route path="login" element={<Login />} />
-          <Route path="register" element={<Register />} />
-        </Route>
-        <Route path="*" element={<Page404 />} />
-      </Routes>
-    </BrowserRouter>
-  );
-}
+import Protected from './components/Protected';
+
+const App = () => {
+  const router = createBrowserRouter([
+    {
+      index: true,
+      element: <Landing />,
+    },
+    {
+      path: 'products/:categoryId',
+      element: <Category />,
+    },
+    {
+      path: 'products/product/:productId',
+      element: <Product />,
+    },
+    {
+      path: '/account',
+      children: [
+        {
+          path: 'login',
+          element: <Login />,
+        },
+        {
+          path: 'register',
+          element: <Register />,
+        },
+        {
+          path: 'cart',
+          element: <Cart />,
+        },
+      ],
+    },
+    {
+      path: 'admin/dashboard',
+      errorElement: <Page404 />,
+      element: (
+        <Protected>
+          <Dashboard />
+        </Protected>
+      ),
+    },
+    {
+      path: '*',
+      element: <Page404 />,
+    },
+  ]);
+
+  return <RouterProvider router={router} />;
+};
 
 export default App;

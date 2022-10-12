@@ -1,42 +1,54 @@
 import {
-  Stack, Center, Title, TextInput, Text, Box, ActionIcon,
+  Stack,
+  Center,
+  Title,
+  TextInput,
+  Text,
+  Box,
+  ActionIcon,
+  Container,
+  MantineNumberSize,
 } from '@mantine/core';
+import { useMediaQuery } from '@mantine/hooks';
 import { IconMail, IconSend } from '@tabler/icons';
 
 import useStyles from './Newsletter.styles';
 
-function SendButton() {
-  return (
-    <ActionIcon size="lg">
-      <IconSend />
-    </ActionIcon>
-  );
-}
+const SendButton = ({ size }: { size: MantineNumberSize }) => (
+  <ActionIcon size={size}>
+    <IconSend />
+  </ActionIcon>
+);
 
-function Newsletter() {
+const Newsletter = () => {
   const { classes } = useStyles();
+  const smallScreen = useMediaQuery('(min-width: 320px) and (max-width: 425px)');
 
   return (
-    <Box className={classes.container}>
-      <Center className={classes.content}>
-        <Stack spacing="md">
-          <Center>
-            <Title>Newsletter</Title>
-          </Center>
-          <Center>
-            <Text>Get timely updates on your favorite products</Text>
-          </Center>
-          <TextInput
-            className={classes.input}
-            size="md"
-            placeholder="Enter Email Address..."
-            icon={<IconMail />}
-            rightSection={<SendButton />}
-          />
-        </Stack>
-      </Center>
+    <Box className={classes.newsletter}>
+      <Container>
+        <Center className={classes.content}>
+          <Stack spacing="md">
+            <Center>
+              <Title order={smallScreen ? 2 : 1}>Newsletter</Title>
+            </Center>
+            <Center>
+              <Text size={smallScreen ? 'sm' : 'md'}>
+                Get timely updates on your favorite products
+              </Text>
+            </Center>
+            <TextInput
+              className={classes.input}
+              size={smallScreen ? 'xs' : 'sm'}
+              placeholder="Enter Email Address..."
+              icon={<IconMail size={22} />}
+              rightSection={<SendButton size={smallScreen ? 'xs' : 'md'} />}
+            />
+          </Stack>
+        </Center>
+      </Container>
     </Box>
   );
-}
+};
 
 export default Newsletter;

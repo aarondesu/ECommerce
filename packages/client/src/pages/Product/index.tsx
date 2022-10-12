@@ -14,8 +14,9 @@ import {
   ActionIcon,
   Badge,
   Divider,
+  Container,
 } from '@mantine/core';
-import { useMediaQuery } from '@mantine/hooks';
+import { useMediaQuery, useCounter } from '@mantine/hooks';
 import { IconTag } from '@tabler/icons';
 import { useParams } from 'react-router-dom';
 
@@ -95,9 +96,9 @@ function Product() {
   const { productId } = useParams();
   const { classes } = useStyles();
 
-  const [quantity, setQuantitiy] = useState(0);
   const [color, setColor] = useState('white');
   const [size, setSize] = useState('s');
+  const [count, handlers] = useCounter(0, { min: 0, max: 10 });
 
   const smallScreen = useMediaQuery('(min-width:320px) and (max-width:425px)');
 
@@ -117,16 +118,12 @@ function Product() {
       footer={<Footer />}
       styles={(theme) => ({
         main: {
+          minWidth: 425,
           backgroundColor: theme.colors.cyan[1],
-          '@media (min-width: 1441px)': {
-            width: '100%',
-            display: 'flex',
-            justifyContent: 'center',
-          },
         },
       })}
     >
-      <Box className={classes.container}>
+      <Container>
         <Box className={classes.productContainer}>
           <Grid className={classes.infoContainer} gutter="lg" grow>
             <Grid.Col span="auto">
@@ -146,10 +143,10 @@ function Product() {
                   <Badge size="lg">1000 Reviews</Badge>
                 </Group>
 
-                <Text>{productData.description}</Text>
+                <Text className={classes.description}>{productData.description}</Text>
 
                 <Group spacing="sm">
-                  <IconTag fill="lightblue" color="lightblue" size={32} />
+                  <IconTag fill="black" color="black" size={32} />
                   <Text weight={700} size={32}>
                     {productData.price}
                   </Text>
@@ -189,27 +186,11 @@ function Product() {
 
                 <Group spacing="lg">
                   <Group spacing={5}>
-                    <ActionIcon
-                      variant="filled"
-                      size={36}
-                      onClick={() => setQuantitiy(quantity - 1)}
-                    >
+                    <ActionIcon variant="filled" size={36} onClick={handlers.decrement}>
                       -
                     </ActionIcon>
-                    <NumberInput
-                      className={classes.quantitiyInput}
-                      hideControls
-                      defaultValue={1}
-                      min={1}
-                      max={10}
-                      value={quantity}
-                      onChange={(value) => setQuantitiy(value)}
-                    />
-                    <ActionIcon
-                      variant="filled"
-                      size={36}
-                      onClick={() => setQuantitiy(quantity + 1)}
-                    >
+                    <NumberInput className={classes.quantitiyInput} hideControls value={count} />
+                    <ActionIcon variant="filled" size={36} onClick={handlers.increment}>
                       +
                     </ActionIcon>
                   </Group>
@@ -234,7 +215,7 @@ function Product() {
             <Text>Test 123123123</Text>
           </Box>
         </Box>
-      </Box>
+      </Container>
     </AppShell>
   );
 }

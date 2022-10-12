@@ -28,5 +28,6 @@ module.exports = {
     'max-classes-per-file': 'off',
     'class-methods-use-this': 'off',
     'react/jsx-props-no-spreading': 'off',
+    'react/require-default-props': 'off',
   },
 };
