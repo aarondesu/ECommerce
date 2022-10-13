@@ -1,5 +1,5 @@
 import {
-  Grid, Stack, Title, Group, Anchor,
+  Grid, Stack, Title, Group, Anchor, Box,
 } from '@mantine/core';
 import {
   IconBrandTwitter,
@@ -9,29 +9,37 @@ import {
   IconBrandTumblr,
 } from '@tabler/icons';
 
-const Socials = () => (
-  <Grid.Col span="content">
-    <Stack spacing="xs">
-      <Title order={6}>FOLLOW US</Title>
-      <Group spacing="xs">
-        <Anchor>
-          <IconBrandTwitter />
-        </Anchor>
-        <Anchor>
-          <IconBrandFacebook />
-        </Anchor>
-        <Anchor>
-          <IconBrandInstagram />
-        </Anchor>
-        <Anchor>
-          <IconBrandDiscord />
-        </Anchor>
-        <Anchor>
-          <IconBrandTumblr />
-        </Anchor>
-      </Group>
-    </Stack>
-  </Grid.Col>
-);
+import useStyles from './Socials.styles';
+
+const Socials = () => {
+  const { classes } = useStyles();
+
+  return (
+    <Grid.Col span="content">
+      <Box className={classes.container}>
+        <Stack spacing="xs">
+          <Title order={6}>FOLLOW US</Title>
+          <Group spacing="xs">
+            <Anchor>
+              <IconBrandTwitter />
+            </Anchor>
+            <Anchor>
+              <IconBrandFacebook />
+            </Anchor>
+            <Anchor>
+              <IconBrandInstagram />
+            </Anchor>
+            <Anchor>
+              <IconBrandDiscord />
+            </Anchor>
+            <Anchor>
+              <IconBrandTumblr />
+            </Anchor>
+          </Group>
+        </Stack>
+      </Box>
+    </Grid.Col>
+  );
+};
 
 export default Socials;
