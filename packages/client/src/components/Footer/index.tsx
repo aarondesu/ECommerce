@@ -1,60 +1,57 @@
 import {
-  Footer,
-  Container,
-  Group,
-  Text,
-  Stack,
-  Divider,
-  Anchor,
-  Title,
-  Center,
+  Footer, Container, Stack, Title, Grid, Anchor, Box, Center,
 } from '@mantine/core';
-import { IconBrandFacebook, IconBrandInstagram, IconBrandTwitter } from '@tabler/icons';
+import { useMediaQuery } from '@mantine/hooks';
+import ContactInfo from './Contactinfo';
+import Socials from './Socials';
+import SiteLinks from './SiteLinks';
 
 import useStyles from './Footer.styles';
 
-function SiteFooter() {
+const Categories = () => (
+  <Grid.Col span="content">
+    <Title order={6}>CATEGORIES</Title>
+    <Stack spacing={8} mt={6}>
+      <Anchor size="xs" color="cyan">
+        Shirts
+      </Anchor>
+      <Anchor size="xs" color="cyan">
+        Jackets
+      </Anchor>
+      <Anchor size="xs" color="cyan">
+        Pants
+      </Anchor>
+    </Stack>
+  </Grid.Col>
+);
+
+const SiteFooter = () => {
   const { classes } = useStyles();
+  const smallScreen = useMediaQuery('(min-width: 320px) and (max-width: 425px)');
 
   return (
-    <Footer className={classes.footer} withBorder={false} fixed={false} height={200} p="xs" px="sm">
-      <Container>
-        <Stack spacing="xl">
-          <Group spacing="lg" position="apart">
-            <Stack>
-              <Title order={4}>MYSHOP</Title>
-              <Text size="xs" weight={700}>
-                Slogan
-              </Text>
-            </Stack>
-            <Stack>
-              <Anchor variant="text">Test</Anchor>
-              <Anchor variant="text">Test</Anchor>
-            </Stack>
-            <Stack>
-              <Anchor variant="text">Test</Anchor>
-              <Anchor variant="text">Test</Anchor>
-            </Stack>
-            <Stack>
-              <Anchor variant="text">Test</Anchor>
-              <Anchor variant="text">Test</Anchor>
-            </Stack>
-          </Group>
-          <Divider />
-          <Center>
-            <Stack>
-              <Group>
-                <IconBrandTwitter />
-                <IconBrandFacebook />
-                <IconBrandInstagram />
-              </Group>
-              <Text size="xs">All rights reserved</Text>
-            </Stack>
-          </Center>
-        </Stack>
-      </Container>
-    </Footer>
+    <>
+      <Footer
+        className={classes.footer}
+        withBorder={false}
+        fixed={false}
+        height={smallScreen ? 350 : 200}
+        p="md"
+      >
+        <Container>
+          <Grid gutter="xl" justify="center" align="stretch" grow>
+            <ContactInfo />
+            <Categories />
+            <SiteLinks />
+            <Socials />
+          </Grid>
+        </Container>
+      </Footer>
+      <Box className={classes.copyright}>
+        <Center>2022 &#169; Copyright</Center>
+      </Box>
+    </>
   );
-}
+};
 
 export default SiteFooter;

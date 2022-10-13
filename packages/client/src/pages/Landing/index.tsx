@@ -35,10 +35,8 @@ function Landing() {
       >
         <Stack spacing="md">
           <Banner {...bannerProps} />
-          <NewProducts />
           <Newsletter />
         </Stack>
-        ;
       </AppShell>
     </>
   );
