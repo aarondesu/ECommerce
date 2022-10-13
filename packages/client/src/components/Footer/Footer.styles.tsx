@@ -2,8 +2,8 @@ import { createStyles } from '@mantine/core';
 
 export default createStyles((theme) => ({
   footer: {
-    backgroundColor: theme.colors.gray[8],
-    color: theme.colors.gray[1],
+    backgroundColor: theme.colors.dark[5],
+    color: theme.colors.gray[2],
     minWidth: 425,
   },
 }));

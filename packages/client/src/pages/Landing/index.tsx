@@ -1,11 +1,11 @@
 import { AppShell, Stack } from '@mantine/core';
 import { Helmet } from 'react-helmet-async';
 
-import useStyles from './Landing.styles';
 import Newsletter from '../../components/Newsletter';
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Banner from '../../components/Banner';
+import NewProducts from '../../components/NewProducts';
 
 const bannerProps = {
   backgroundImg:
@@ -15,8 +15,6 @@ const bannerProps = {
 };
 
 function Landing() {
-  const { classes } = useStyles();
-
   return (
     <>
       <Helmet>
@@ -37,6 +35,7 @@ function Landing() {
       >
         <Stack spacing="md">
           <Banner {...bannerProps} />
+          <NewProducts />
           <Newsletter />
         </Stack>
         ;

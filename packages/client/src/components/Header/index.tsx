@@ -10,7 +10,7 @@ import {
   Container,
   Anchor,
 } from '@mantine/core';
-import { IconCashBanknote, IconSearch, IconShoppingCart } from '@tabler/icons';
+import { IconCashBanknote, IconSearch } from '@tabler/icons';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -20,6 +20,7 @@ import { useAppSelector } from '../../redux/hooks';
 import NavigationLoggedIn from './Navlinks.loggedin';
 import NavigationLoggedOff from './Navlinks.loggedoff';
 import SaleNotification from '../SaleNotification';
+import CartIcon from '../CartIcon';
 
 const SearchIcon = () => (
   <ActionIcon>
@@ -34,10 +35,12 @@ interface HeaderProps {
 const NavBar = ({ fixed = false }: HeaderProps) => {
   const { classes } = useStyles();
   const user = useAppSelector((state) => state.authReducer.user);
-  const [opened, setOpened] = useState<boolean>(false);
+  const [opened, setOpened] = useState(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     // TODO
+    setShow(true);
   }, [user]);
 
   return (
@@ -48,19 +51,11 @@ const NavBar = ({ fixed = false }: HeaderProps) => {
         <Container>
           <Group position="apart">
             <Group spacing="xs" position="left">
-              <ThemeIcon size="lg">
+              <ThemeIcon size="lg" color="dark">
                 <IconCashBanknote />
               </ThemeIcon>
               <Anchor variant="text" component={Link} to="/">
-                <Title
-                  variant="gradient"
-                  gradient={{
-                    from: 'indigo',
-                    to: 'cyan',
-                    deg: 180,
-                  }}
-                  order={3}
-                >
+                <Title variant="text" color="dark" order={3}>
                   MyShop
                 </Title>
               </Anchor>
@@ -76,9 +71,7 @@ const NavBar = ({ fixed = false }: HeaderProps) => {
                     size="xs"
                   />
                   {user === null ? <NavigationLoggedOff /> : <NavigationLoggedIn />}
-                  <ActionIcon radius="xl" variant="filled" component={Link} to="/account/cart">
-                    <IconShoppingCart size={18} />
-                  </ActionIcon>
+                  <CartIcon items={5} />
                 </Group>
               </Group>
             </MediaQuery>
@@ -90,7 +83,7 @@ const NavBar = ({ fixed = false }: HeaderProps) => {
           </Group>
         </Container>
       </Header>
-      <SaleNotification text="Enjoy 50% off on everything!" show />
+      <SaleNotification text="Enjoy 50% off on everything!" show={show} />
     </>
   );
 };

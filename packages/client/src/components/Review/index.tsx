@@ -9,7 +9,7 @@ interface ReviewProps {
   review: string;
 }
 
-function Review({ userId, rating, review }: ReviewProps) {
+function Review({ rating, review }: ReviewProps) {
   const { classes } = useStyles();
 
   return (

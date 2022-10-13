@@ -1,5 +1,5 @@
 import {
-  Box, Center, Button, Text, Group,
+  Box, Center, Button, Text, Group, Transition,
 } from '@mantine/core';
 
 import useStyles from './SaleNotification.syles';
@@ -13,16 +13,20 @@ const SaleNotification = ({ text, show }: SaleNotificationProps) => {
   const { classes } = useStyles();
 
   return (
-    <Box className={classes.notification} p="xs" style={{ display: show ? 'block' : 'none' }}>
-      <Center>
-        <Group>
-          <Text size="xs">{text}</Text>
-          <Button size="xs" compact uppercase variant="default">
-            Shop now!
-          </Button>
-        </Group>
-      </Center>
-    </Box>
+    <Transition mounted={show} transition="scale-y" duration={5000}>
+      {(styles) => (
+        <Box className={classes.notification} p="xs" styles={styles}>
+          <Center>
+            <Group spacing="xs">
+              <Text size="xs">{text}</Text>
+              <Button size="xs" compact uppercase variant="outline" color="gray">
+                Shop now!
+              </Button>
+            </Group>
+          </Center>
+        </Box>
+      )}
+    </Transition>
   );
 };
 

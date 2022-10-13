@@ -19,10 +19,10 @@ const Banner = ({ backgroundImg, header, desc }: BannerProps) => {
       <Container p="md" className={classes.banner}>
         <Box className={classes.bannerdesc}>
           <Title order={1} color="white">
-            { header }
+            {header}
           </Title>
           <Text color="white" size="xs">
-            { desc }
+            {desc}
           </Text>
           <Group mt="xs">
             <Button size="lg" variant="default" component={Link} to="/products/123123">

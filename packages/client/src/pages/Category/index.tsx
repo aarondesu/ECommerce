@@ -1,7 +1,6 @@
 import {
   AppShell, Box, Group, MediaQuery, Navbar, Select, Text, Title,
 } from '@mantine/core';
-import { useParams } from 'react-router-dom';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -103,7 +102,6 @@ function FilterNavigation() {
 }
 
 function Category() {
-  const { categoryId } = useParams();
   const { classes } = useStyles();
 
   const products = productsData.map((product) => (

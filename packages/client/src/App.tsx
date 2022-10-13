@@ -2,8 +2,8 @@
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
 import Landing from './pages/Landing';
-import Login from './pages/Login';
-import Register from './pages/Register';
+import Login from './pages/Account/Login';
+import Register from './pages/Account/Register';
 import Cart from './pages/Cart';
 import Product from './pages/Product';
 import Category from './pages/Category';
@@ -11,6 +11,7 @@ import Page404 from './pages/Page404';
 import Dashboard from './pages/Dashboard';
 
 import Protected from './components/Protected';
+import Account from './pages/Account';
 
 const App = () => {
   const router = createBrowserRouter([
@@ -27,7 +28,8 @@ const App = () => {
       element: <Product />,
     },
     {
-      path: '/account',
+      path: 'account',
+      element: <Account />,
       children: [
         {
           path: 'login',
@@ -37,11 +39,11 @@ const App = () => {
           path: 'register',
           element: <Register />,
         },
-        {
-          path: 'cart',
-          element: <Cart />,
-        },
       ],
+    },
+    {
+      path: 'cart',
+      element: <Cart />,
     },
     {
       path: 'admin/dashboard',

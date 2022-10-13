@@ -2,7 +2,7 @@ import { createStyles } from '@mantine/core';
 
 const useStyles = createStyles((theme) => ({
   banner: {
-    height: 500,
+    height: 600,
     position: 'relative',
   },
   bannerdesc: {
@@ -11,6 +11,7 @@ const useStyles = createStyles((theme) => ({
     padding: theme.spacing.md,
     left: 30,
     bottom: 30,
+    userSelect: 'none',
   },
 }));
 

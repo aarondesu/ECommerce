@@ -18,7 +18,6 @@ import {
 } from '@mantine/core';
 import { useMediaQuery, useCounter } from '@mantine/hooks';
 import { IconTag } from '@tabler/icons';
-import { useParams } from 'react-router-dom';
 
 import Header from '../../components/Header';
 import Footer from '../../components/Footer';
@@ -93,7 +92,6 @@ const productData = {
 };
 
 function Product() {
-  const { productId } = useParams();
   const { classes } = useStyles();
 
   const [color, setColor] = useState('white');

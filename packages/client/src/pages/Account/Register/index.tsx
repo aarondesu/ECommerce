@@ -1,38 +1,28 @@
 /* eslint-disable no-nested-ternary */
-/* eslint-disable no-console */
 import {
-  Anchor,
   Stack,
-  Checkbox,
-  TextInput,
-  PasswordInput,
-  Popover,
-  Text,
-  Button,
   Title,
-  Box,
+  TextInput,
+  Popover,
+  PasswordInput,
   Progress,
+  Checkbox,
+  Button,
+  Anchor,
+  Text,
 } from '@mantine/core';
-import { IconCheck, IconX } from '@tabler/icons';
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useOutletContext } from 'react-router-dom';
+import { useForm } from '@mantine/form';
 import { useId } from '@mantine/hooks';
+import { useState } from 'react';
+import { RegisterRequest, useRegisterMutation } from '../../../redux/api/auth.api';
+import { useAppDispatch } from '../../../redux/hooks';
+import PasswordRequirement from '../../../components/PasswordRequirement';
+import { setCredentials } from '../../../redux/reducers/auth.reducer';
+import { APIError } from '../../../interfaces/api.interface';
+import { OutletContext } from '../index';
 
-import { useFormContext } from './Register.formContext';
 import useStyles from './Register.styles';
-
-const PasswordRequirement = ({ meets, label }: { meets: boolean; label: string }) => (
-  <Text
-    color={meets ? 'teal' : 'red'}
-    sx={{ display: 'flex', alignItems: 'center' }}
-    mt={7}
-    size="sm"
-  >
-    {meets ? <IconCheck size={14} /> : <IconX size={14} />}
-    {' '}
-    <Box ml={10}>{label}</Box>
-  </Text>
-);
 
 const requirements = [
   { re: /[0-9]/, label: 'Includes number' },
@@ -40,6 +30,16 @@ const requirements = [
   { re: /[A-Z]/, label: 'Includes uppercase letter' },
   { re: /[$&+,:;=?@#|'<>.^*()%!-]/, label: 'Includes special symbol' },
 ];
+
+const regexPassword = (value: string): string => {
+  if (value.length < 6) return 'Password must be at least 6 characters';
+  if (!/^.*[a-z].*$/.test(value)) return 'Password must have at least 1 lower case letter';
+  if (!/^.*[A-Z].*$/.test(value)) return 'Password must have at least 1 upper case letter';
+  if (!/^.*[0-9].*$/.test(value)) return 'Password must have at least 1 number';
+  if (!/^.*[$&+,:;=?@#|'<>.^*()%!-].*$/.test(value)) return 'Password must have at least 1 special symbol';
+
+  return null;
+};
 
 const getStrength = (password: string) => {
   let multiplier = password.length > 5 ? 0 : 1;
@@ -53,19 +53,58 @@ const getStrength = (password: string) => {
   return Math.max(100 - (100 / (requirements.length + 1)) * multiplier, 10);
 };
 
-interface FormProps {
-  handleForm: () => void;
-  setTerms: (args: boolean) => void;
-  terms: boolean;
-  loading: boolean;
-}
-
-const RegisterForm = ({
-  handleForm, terms, loading, setTerms,
-}: FormProps) => {
+const Register = () => {
   const { classes } = useStyles();
-  const form = useFormContext();
+
+  const { loading, setLoading } = useOutletContext<OutletContext>();
+  const [register] = useRegisterMutation();
+  const [terms, setTerms] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
+  const dispatch = useAppDispatch();
+
+  const form = useForm({
+    initialValues: {
+      username: '',
+      password: '',
+      confirmPassword: '',
+      email: '',
+      firstName: '',
+      lastName: '',
+      termsOfService: false,
+    },
+    validate: {
+      username: (value) => (value.length < 4 ? 'Username must have at least 4 letters' : null),
+      email: (value) => (/^\S+@\S+$/.test(value) ? null : 'Invalid Email'),
+      password: (value) => regexPassword(value),
+      confirmPassword: (value, values) => (value !== values.password ? 'Passwords did not match' : null),
+      firstName: (value) => (value.length < 2 ? 'First Name must have at least 2 letters' : null),
+      lastName: (value) => (value.length < 2 ? 'Last Name must have at least 2 letters' : null),
+    },
+  });
+
+  const handleForm = (): void => {
+    if (form.values.termsOfService === false) {
+      setTerms(true);
+      return null;
+    }
+
+    setLoading(true);
+    const result = register({ ...form.values } as RegisterRequest).unwrap();
+
+    result
+      .then((response) => {
+        dispatch(setCredentials(response));
+      })
+      .catch((error) => {
+        setLoading(false);
+        const { data } = error as APIError;
+        const field = data.split(' ')[0];
+
+        form.setFieldError(field.toLowerCase(), data);
+      });
+
+    return null;
+  };
 
   const checks = requirements.map((requirement) => (
     <PasswordRequirement
@@ -162,4 +201,4 @@ const RegisterForm = ({
   );
 };
 
-export default RegisterForm;
+export default Register;
