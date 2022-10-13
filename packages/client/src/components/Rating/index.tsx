@@ -8,9 +8,13 @@ import useStyles from './Rating.styles';
 interface RatingParams {
   score: number;
   size: number;
+  color?: string;
+  outline?: string;
 }
 
-function Rating({ score, size = 16 }: RatingParams) {
+function Rating({
+  score, color = '', outline = 'black', size = 16,
+}: RatingParams) {
   const { classes } = useStyles();
 
   // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -24,8 +28,8 @@ function Rating({ score, size = 16 }: RatingParams) {
         <IconStar
           key={useId()}
           className={classes.stars}
-          fill="yellow"
-          color="yellow"
+          fill={color}
+          color={outline}
           size={size}
         />
       );
@@ -35,8 +39,8 @@ function Rating({ score, size = 16 }: RatingParams) {
         <IconStar
           key={useId()}
           className={classes.stars}
-          fill="yellow"
-          color="yellow"
+          fill={color}
+          color={outline}
           size={size}
         />
       );
@@ -45,8 +49,8 @@ function Rating({ score, size = 16 }: RatingParams) {
       <IconStarHalf
         key={useId()}
         className={classes.stars}
-        fill="yellow"
-        color="yellow"
+        fill={color}
+        color={outline}
         size={size}
       />
     );

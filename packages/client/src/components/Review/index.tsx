@@ -15,7 +15,7 @@ function Review({ rating, review }: ReviewProps) {
   return (
     <Box className={classes.reviewContainer}>
       <Box className={classes.reviewUser}>
-        <Rating score={rating} size={24} />
+        <Rating score={rating} size={24} color="none" outline="black" />
         <Text>
           by
           {' '}

@@ -137,7 +137,7 @@ function Product() {
                 <Title order={1}>{productData.name}</Title>
 
                 <Group spacing="lg">
-                  <Rating size={32} score={productData.rating} />
+                  <Rating size={32} score={productData.rating} color="none" outline="black" />
                   <Badge size="lg">1000 Reviews</Badge>
                 </Group>
 

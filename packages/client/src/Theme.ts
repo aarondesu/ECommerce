@@ -7,6 +7,13 @@ const theme: MantineThemeOverride = {
   fontFamilyMonospace: 'Montserrat CF, monospace',
   headings: { fontFamily: 'Montserrat CF, sans-serif' },
   components: {
+    AppShell: {
+      styles: {
+        main: {
+          minWidth: 425,
+        },
+      },
+    },
     Container: {
       styles: {
         root: {

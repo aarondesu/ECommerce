@@ -6,6 +6,7 @@ import Header from '../../components/Header';
 import Footer from '../../components/Footer';
 import Banner from '../../components/Banner';
 import NewProducts from '../../components/NewProducts';
+import PopularProducts from '../../components/PopularProducts';
 
 const bannerProps = {
   backgroundImg:
@@ -21,20 +22,11 @@ function Landing() {
         <title>Landing</title>
       </Helmet>
 
-      <AppShell
-        fixed={false}
-        header={<Header />}
-        footer={<Footer />}
-        padding={0}
-        styles={(theme) => ({
-          main: {
-            backgroundColor: theme.colors.cyan[1],
-            minWidth: 425,
-          },
-        })}
-      >
+      <AppShell fixed={false} header={<Header />} footer={<Footer />} padding={0}>
         <Stack spacing="md">
           <Banner {...bannerProps} />
+          <PopularProducts />
+          <NewProducts />
           <Newsletter />
         </Stack>
       </AppShell>
