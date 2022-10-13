@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import {
   Stack,
   TextInput,
@@ -10,22 +11,26 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { showNotification } from '@mantine/notifications';
-import { useId } from 'react';
-import { Link, useOutletContext } from 'react-router-dom';
+import { useEffect, useId } from 'react';
+import { Link } from 'react-router-dom';
 import { APIError } from '../../../interfaces/api.interface';
 import { LoginRequest, useLoginMutation } from '../../../redux/api/auth.api';
 import { useAppDispatch } from '../../../redux/hooks';
 import { setCredentials } from '../../../redux/reducers/auth.reducer';
-import { OutletContext } from '../index';
+import { useLoading } from '../index';
 
 import useStyles from './Login.styles';
 
 const Login = () => {
   const { classes } = useStyles();
 
-  const { setLoading } = useOutletContext<OutletContext>();
+  const { setLoading } = useLoading();
   const [login] = useLoginMutation();
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    // TODO
+  }, []);
 
   const form = useForm({
     initialValues: {
@@ -67,6 +72,7 @@ const Login = () => {
       {item.label}
     </Anchor>
   ));
+
   return (
     <form onSubmit={form.onSubmit(() => handleSubmit())}>
       <Stack spacing="xl">

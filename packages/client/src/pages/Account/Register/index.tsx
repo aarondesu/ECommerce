@@ -11,7 +11,7 @@ import {
   Anchor,
   Text,
 } from '@mantine/core';
-import { Link, useOutletContext } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { useForm } from '@mantine/form';
 import { useId } from '@mantine/hooks';
 import { useState } from 'react';
@@ -20,7 +20,7 @@ import { useAppDispatch } from '../../../redux/hooks';
 import PasswordRequirement from '../../../components/PasswordRequirement';
 import { setCredentials } from '../../../redux/reducers/auth.reducer';
 import { APIError } from '../../../interfaces/api.interface';
-import { OutletContext } from '../index';
+import { useLoading } from '../index';
 
 import useStyles from './Register.styles';
 
@@ -56,7 +56,7 @@ const getStrength = (password: string) => {
 const Register = () => {
   const { classes } = useStyles();
 
-  const { loading, setLoading } = useOutletContext<OutletContext>();
+  const { loading, setLoading } = useLoading();
   const [register] = useRegisterMutation();
   const [terms, setTerms] = useState(false);
   const [showGuide, setShowGuide] = useState(false);

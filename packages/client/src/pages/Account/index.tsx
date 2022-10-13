@@ -1,10 +1,11 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import {
   AppShell, Box, Center, LoadingOverlay,
 } from '@mantine/core';
-import { Outlet } from 'react-router-dom';
+import { Outlet, useNavigate, useOutletContext } from 'react-router-dom';
 
 import useStyles from './Account.styles';
+import { useAppSelector } from '../../redux/hooks';
 
 export interface OutletContext {
   loading: boolean;
@@ -14,8 +15,14 @@ export interface OutletContext {
 const Account = () => {
   const { classes } = useStyles();
   const [loading, setLoading] = useState(false);
+  const { token } = useAppSelector((state) => state.authReducer);
+  const navigate = useNavigate();
 
   const background = 'https://ufxpuewfaoxlauohzsep.supabase.co/storage/v1/object/public/shinucommerce/kai-pilger-7YwWjgS7aJs-unsplash.jpg';
+
+  useEffect(() => {
+    if (token !== '') { navigate(-1); }
+  }, [token]);
 
   return (
     <AppShell
@@ -30,11 +37,13 @@ const Account = () => {
       <Center className={classes.center}>
         <Box className={classes.container}>
           <LoadingOverlay color="#000" overlayBlur={2} visible={loading} />
-          <Outlet context={[loading, setLoading]} />
+          <Outlet context={{ loading, setLoading }} />
         </Box>
       </Center>
     </AppShell>
   );
 };
+
+export const useLoading = () => useOutletContext<OutletContext>();
 
 export default Account;
