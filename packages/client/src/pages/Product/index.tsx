@@ -15,6 +15,8 @@ import {
   Badge,
   Divider,
   Container,
+  Pagination,
+  Center,
 } from '@mantine/core';
 import { useMediaQuery, useCounter } from '@mantine/hooks';
 import { IconTag } from '@tabler/icons';
@@ -94,6 +96,7 @@ const productData = {
 function Product() {
   const { classes } = useStyles();
 
+  const [page, setPage] = useState(1);
   const [color, setColor] = useState('white');
   const [size, setSize] = useState('s');
   const [count, handlers] = useCounter(0, { min: 0, max: 10 });
@@ -117,7 +120,7 @@ function Product() {
       styles={(theme) => ({
         main: {
           minWidth: 425,
-          backgroundColor: theme.colors.cyan[1],
+          backgroundColor: theme.colors.gray[2],
         },
       })}
     >
@@ -204,14 +207,14 @@ function Product() {
           <Title order={1}>Reviews</Title>
 
           <Stack mt="sm" spacing="xs">
+            <Center>
+              <Pagination page={page} onChange={setPage} total={10} />
+            </Center>
             {reviews}
+            <Center>
+              <Pagination page={page} onChange={setPage} total={10} />
+            </Center>
           </Stack>
-        </Box>
-        <Box mt="xl">
-          <Title order={1}>Related Products</Title>
-          <Box className={classes.relatedContainer}>
-            <Text>Test 123123123</Text>
-          </Box>
         </Box>
       </Container>
     </AppShell>
