@@ -1,8 +1,17 @@
 import { createStyles } from '@mantine/core';
 
-export default createStyles(() => ({
+const useStyles = createStyles((theme) => ({
   container: {
+    maxWidth: 1400,
+  },
+  cartContainer: {
+    padding: theme.spacing.lg,
     backgroundColor: 'white',
+    display: 'felx',
+
+    '@media (min-width: 1441px)': {
+      width: 1400,
+    },
   },
   itemDetails: {
     width: '80%',
@@ -21,3 +30,5 @@ export default createStyles(() => ({
     textAlign: 'center',
   },
 }));
+
+export default useStyles;
