@@ -21,7 +21,9 @@ const Account = () => {
   const background = 'https://ufxpuewfaoxlauohzsep.supabase.co/storage/v1/object/public/shinucommerce/kai-pilger-7YwWjgS7aJs-unsplash.jpg';
 
   useEffect(() => {
-    if (token !== '') { navigate(-1); }
+    if (token !== '') {
+      navigate(-1);
+    }
   }, [token]);
 
   return (
@@ -36,7 +38,13 @@ const Account = () => {
     >
       <Center className={classes.center}>
         <Box className={classes.container}>
-          <LoadingOverlay color="#000" overlayBlur={2} visible={loading} />
+          <LoadingOverlay
+            overlayBlur={2}
+            visible={loading}
+            loaderProps={{ variant: 'bars' }}
+            overlayOpacity={0.8}
+            overlayColor="#3f3f3f"
+          />
           <Outlet context={{ loading, setLoading }} />
         </Box>
       </Center>

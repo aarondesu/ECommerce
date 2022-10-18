@@ -13,7 +13,7 @@ const CartIcon = ({ items = 0 }: CartIconProps) => {
   if (items > 99) display = '99+';
 
   return (
-    <Indicator disabled={disabled} label={display} size={18} offset={4}>
+    <Indicator disabled={disabled} label={display} size={18} offset={4} color="dark">
       <ActionIcon variant="filled" color="gray" radius="xl" size="md" component={Link} to="/cart">
         <IconShoppingCart size={18} />
       </ActionIcon>

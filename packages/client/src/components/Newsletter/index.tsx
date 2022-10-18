@@ -42,7 +42,7 @@ const Newsletter = () => {
               size={smallScreen ? 'xs' : 'sm'}
               placeholder="Enter Email Address..."
               icon={<IconMail size={22} />}
-              rightSection={<SendButton size={smallScreen ? 'xs' : 'md'} />}
+              rightSection={<SendButton size={smallScreen ? 'xs' : 'sm'} />}
             />
           </Stack>
         </Center>

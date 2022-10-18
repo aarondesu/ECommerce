@@ -34,9 +34,9 @@ const NewProducts = () => {
   return (
     <Container fluid className={classes.container}>
       <Title order={2} style={{ textAlign: 'center' }}>
-        New Products
+        NEW PRODUCTS
       </Title>
-      <Group mt="md" position="center">
+      <Group mt="md" position="center" spacing="xl">
         {products}
       </Group>
     </Container>

@@ -9,8 +9,9 @@ const useStyles = createStyles((theme) => ({
     width: 400,
     position: 'absolute',
     padding: theme.spacing.md,
-    left: 30,
-    bottom: 30,
+    display: '',
+    left: 50,
+    bottom: 50,
     userSelect: 'none',
   },
 }));

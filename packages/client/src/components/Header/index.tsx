@@ -6,11 +6,10 @@ import {
   Title,
   Burger,
   TextInput,
-  ThemeIcon,
   Container,
   Anchor,
 } from '@mantine/core';
-import { IconCashBanknote, IconSearch } from '@tabler/icons';
+import { IconSearch } from '@tabler/icons';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -51,9 +50,6 @@ const NavBar = ({ fixed = false }: HeaderProps) => {
         <Container>
           <Group position="apart">
             <Group spacing="xs" position="left">
-              <ThemeIcon size="lg" color="dark">
-                <IconCashBanknote />
-              </ThemeIcon>
               <Anchor variant="text" component={Link} to="/">
                 <Title variant="text" color="dark" order={3}>
                   MyShop

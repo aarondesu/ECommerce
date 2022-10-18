@@ -6,7 +6,7 @@ export default createStyles((theme) => ({
     height: 300,
     padding: 10,
     position: 'relative',
-    backgroundColor: theme.colors.cyan[1],
+    backgroundColor: 'white',
     userSelect: 'none',
   },
   overlay: {
@@ -19,6 +19,7 @@ export default createStyles((theme) => ({
     backgroundColor: theme.colors.dark[8],
     opacity: 0.8,
     verticalAlign: 'center',
+    transition: 'opacity 2s linear ease-in',
   },
   center: {
     verticalAlign: 'center',

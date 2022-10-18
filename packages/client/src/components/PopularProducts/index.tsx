@@ -79,7 +79,7 @@ const PopularProducts = () => {
   return (
     <Container fluid className={classes.container}>
       <Title order={2} style={{ textAlign: 'center' }}>
-        Popular Items
+        POPULAR
       </Title>
       <Group mt="md" position="center">
         {products}

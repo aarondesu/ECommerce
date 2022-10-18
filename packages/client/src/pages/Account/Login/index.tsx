@@ -5,14 +5,13 @@ import {
   PasswordInput,
   Button,
   Checkbox,
-  Breadcrumbs,
   Anchor,
   Title,
+  Text,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { showNotification } from '@mantine/notifications';
-import { useEffect, useId } from 'react';
 import { Link } from 'react-router-dom';
+import { useEffect } from 'react';
 import { APIError } from '../../../interfaces/api.interface';
 import { LoginRequest, useLoginMutation } from '../../../redux/api/auth.api';
 import { useAppDispatch } from '../../../redux/hooks';
@@ -55,28 +54,17 @@ const Login = () => {
         setLoading(false);
         const { data } = error as APIError;
 
-        showNotification({
-          title: 'failed to login',
-          message: data,
-        });
+        const field = data.split(' ')[0];
+        form.setFieldError(field.toLowerCase(), data);
       });
 
     return null;
   };
 
-  const links = [
-    { label: 'Register', href: '/account/register' },
-    { label: 'Forgot Password', href: '/account/forgot' },
-  ].map((item) => (
-    <Anchor component={Link} to={item.href} key={useId()}>
-      {item.label}
-    </Anchor>
-  ));
-
   return (
     <form onSubmit={form.onSubmit(() => handleSubmit())}>
-      <Stack spacing="xl">
-        <Title order={2}>Sign In</Title>
+      <Stack spacing="lg">
+        <Title order={2}>SIGN IN</Title>
         <TextInput
           className={classes.input}
           placeholder="Username"
@@ -91,7 +79,20 @@ const Login = () => {
         <Button variant="filled" type="submit">
           Login
         </Button>
-        <Breadcrumbs style={{ textAlign: 'center' }}>{links}</Breadcrumbs>
+        <div style={{ textAlign: 'center' }}>
+          <Text size="sm">
+            Don&apos;t have an account yet?
+            {' '}
+            <Anchor component={Link} to="/account/register">
+              Sign up
+            </Anchor>
+          </Text>
+          <Text size="sm">
+            Forgot account details?
+            {' '}
+            <Anchor>Click here</Anchor>
+          </Text>
+        </div>
       </Stack>
     </form>
   );

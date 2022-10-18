@@ -8,9 +8,6 @@ import Cart from './pages/Cart';
 import Product from './pages/Product';
 import Category from './pages/Category';
 import Page404 from './pages/Page404';
-import Dashboard from './pages/Dashboard';
-
-import Protected from './components/Protected';
 import Account from './pages/Account';
 
 const App = () => {
@@ -44,15 +41,6 @@ const App = () => {
     {
       path: 'cart',
       element: <Cart />,
-    },
-    {
-      path: 'admin/dashboard',
-      errorElement: <Page404 />,
-      element: (
-        <Protected>
-          <Dashboard />
-        </Protected>
-      ),
     },
     {
       path: '*',

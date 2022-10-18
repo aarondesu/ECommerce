@@ -22,6 +22,7 @@ import { setCredentials } from '../../../redux/reducers/auth.reducer';
 import { APIError } from '../../../interfaces/api.interface';
 import { useLoading } from '../index';
 
+import Terms from '../../../components/Terms';
 import useStyles from './Register.styles';
 
 const requirements = [
@@ -57,6 +58,7 @@ const Register = () => {
   const { classes } = useStyles();
 
   const { loading, setLoading } = useLoading();
+  const [showModal, setShowModal] = useState(false);
   const [register] = useRegisterMutation();
   const [terms, setTerms] = useState(false);
   const [showGuide, setShowGuide] = useState(false);
@@ -119,6 +121,8 @@ const Register = () => {
 
   return (
     <form onSubmit={form.onSubmit(() => handleForm())}>
+      <Terms show={showModal} onClose={() => setShowModal(false)} />
+
       <Stack spacing="xl">
         <Title order={2}>Create an Account</Title>
         <TextInput
@@ -175,7 +179,13 @@ const Register = () => {
                 <>
                   By accepting, I agree to the
                   {' '}
-                  <b>Terms and Conditions</b>
+                  <Anchor
+                    onClick={() => {
+                      setShowModal(true);
+                    }}
+                  >
+                    <b>Terms and Conditions</b>
+                  </Anchor>
                 </>
               )}
               {...form.getInputProps('termsOfService', { type: 'checkbox' })}
@@ -186,7 +196,7 @@ const Register = () => {
           </Popover.Dropdown>
         </Popover>
         <Button variant="filled" type="submit" loading={loading}>
-          Register
+          SIGN UP
         </Button>
         <Text size="sm">
           Already have an account?

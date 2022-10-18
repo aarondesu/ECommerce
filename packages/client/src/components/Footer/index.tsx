@@ -48,7 +48,7 @@ const SiteFooter = () => {
         </Container>
       </Footer>
       <Box className={classes.copyright}>
-        <Center>2022 &#169; Copyright</Center>
+        <Center style={{ userSelect: 'none' }}>2022 &#169; Copyright</Center>
       </Box>
     </>
   );
