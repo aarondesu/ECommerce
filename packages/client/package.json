@@ -4,8 +4,9 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
+    "clean": "echo \"Cleaning Client\" && npx rimraf dist",
     "watch": "vite",
-    "build": "tsc && vite build",
+    "build": "echo \"Building Client\" && tsc && vite build",
     "preview": "vite preview"
   },
   "dependencies": {
