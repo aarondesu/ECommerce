@@ -52,6 +52,9 @@ const UserList = ({ isLoading, data } : UserListProps) => {
             <Avatar size="lg" radius="xl" src={user.img} />
           </td>
           <td>
+            <Text color="gray">{user.id}</Text>
+          </td>
+          <td>
             <Text>{user.username}</Text>
           </td>
           <td>
@@ -63,10 +66,10 @@ const UserList = ({ isLoading, data } : UserListProps) => {
           <td>
             <Center>
               <Button.Group>
-                <Button compact variant="default" leftIcon={<IconEye size={18} />}>
+                <Button compact variant="default" leftIcon={<IconEye size={18} stroke={1.3} />}>
                   View
                 </Button>
-                <Button compact variant="default" leftIcon={<IconEdit size={18} />}>
+                <Button compact variant="default" leftIcon={<IconEdit size={18} stroke={1.3} />}>
                   Edit
                 </Button>
               </Button.Group>
