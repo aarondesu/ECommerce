@@ -126,21 +126,25 @@ const Register = () => {
       <Stack spacing="xl">
         <Title order={2}>Create an Account</Title>
         <TextInput
+          required
           className={classes.input}
           placeholder="Username"
           {...form.getInputProps('username')}
         />
         <TextInput
+          required
           className={classes.input}
           placeholder="Email Address"
           {...form.getInputProps('email')}
         />
         <TextInput
+          required
           className={classes.input}
           placeholder="First Name"
           {...form.getInputProps('firstName')}
         />
         <TextInput
+          required
           className={classes.input}
           placeholder="Last Name"
           {...form.getInputProps('lastName')}
@@ -148,6 +152,7 @@ const Register = () => {
         <Popover width={400} position="bottom" withArrow shadow="md" opened={showGuide}>
           <Popover.Target>
             <PasswordInput
+              required
               onFocusCapture={() => setShowGuide(true)}
               onBlurCapture={() => setShowGuide(false)}
               className={classes.input}
@@ -166,6 +171,7 @@ const Register = () => {
           </Popover.Dropdown>
         </Popover>
         <PasswordInput
+          required
           className={classes.input}
           withAsterisk
           placeholder="Confirm Password"
@@ -174,6 +180,7 @@ const Register = () => {
         <Popover width={300} position="right-end" withArrow shadow="md" opened={terms}>
           <Popover.Target>
             <Checkbox
+              required
               size="xs"
               label={(
                 <>

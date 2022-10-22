@@ -66,11 +66,13 @@ const Login = () => {
       <Stack spacing="lg">
         <Title order={2}>SIGN IN</Title>
         <TextInput
+          required
           className={classes.input}
           placeholder="Username"
           {...form.getInputProps('username')}
         />
         <PasswordInput
+          required
           className={classes.input}
           placeholder="Password"
           {...form.getInputProps('password')}

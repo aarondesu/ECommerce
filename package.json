@@ -8,8 +8,8 @@
   "scripts": {
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "format": "yarn lint --fix",
-    "clean": "yarn workspaces foreach yarn run clean",
-    "build": "yarn workspaces foreach yarn run build",
+    "clean": "yarn workspaces foreach run clean",
+    "build": "yarn workspaces foreach run build",
     "start": "yarn workspace @ecommerce/client start",
     "watch:api": "yarn workspace @ecommerce/api watch",
     "watch:client": "yarn workspace @ecommerce/client watch",

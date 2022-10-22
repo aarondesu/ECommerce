@@ -1,13 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit';
+import { configureStore, combineReducers } from '@reduxjs/toolkit';
 
 import authReducer from './reducers/auth.reducer';
 import { authApi } from './api/auth.api';
 
+const reducers = combineReducers({
+  authReducer, [authApi.reducerPath]: authApi.reducer,
+});
+
 const store = configureStore({
-  reducer: {
-    [authApi.reducerPath]: authApi.reducer,
-    authReducer,
-  },
+  reducer: reducers,
   middleware: (getDefaultMiddleware) => getDefaultMiddleware().concat(authApi.middleware),
 });
 
