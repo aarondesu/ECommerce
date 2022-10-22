@@ -3,6 +3,7 @@ import {
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useEffect, useState } from 'react';
+import { IconFilter, IconPlus } from '@tabler/icons';
 
 import useStyles from './styles';
 import { usePaginateQuery } from '../../redux/api/users.api';
@@ -52,14 +53,24 @@ const Users = () => {
     if (isSuccess) {
       setTotalPage(data.pages);
     }
+
+    return () => {
+      // eslint-disable-next-line no-console
+      console.log('Component did unmount!');
+    };
   }, [isSuccess]);
 
   return (
     <>
       <Box className={classes.container}>
-        <Title order={2} weight={900}>
-          Users
-        </Title>
+        <Group position="apart">
+          <Title order={2} weight={900}>
+            Users
+          </Title>
+          <Button leftIcon={<IconPlus size={18} />}>
+            Create
+          </Button>
+        </Group>
       </Box>
 
       <Box className={classes.container} mt="md">
@@ -93,7 +104,10 @@ const Users = () => {
               style={{ width: 150 }}
               {...form.getInputProps('order')}
             />
-            <Button type="submit">Filter</Button>
+
+            <Button type="submit" leftIcon={<IconFilter size={18} />}>
+              Filter
+            </Button>
           </Group>
         </form>
 
@@ -111,6 +125,9 @@ const Users = () => {
           <thead>
             <tr>
               <td width={60} />
+              <td style={{ width: 350 }}>
+                <b>ID</b>
+              </td>
               <td style={{ minWidth: 100 }}>
                 <b>Username</b>
               </td>
