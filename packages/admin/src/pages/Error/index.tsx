@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 import { useRouteError } from 'react-router-dom';
 import {
-  Container, Center, Title, 
+  Container, Center, Title,
 } from '@mantine/core';
 
 const ErrorPage = () => {

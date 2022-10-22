@@ -4,7 +4,6 @@ import Rating from '../Rating';
 import useStyles from './Review.styles';
 
 interface ReviewProps {
-  userId: number;
   rating: number;
   review: string;
 }

@@ -1,5 +1,5 @@
 import {
-  AppShell, Box, Button, Grid, Group, Stack, Title, Container,
+  AppShell, Button, Grid, Group, Stack, Title, Container,
 } from '@mantine/core';
 import { IconShoppingCart } from '@tabler/icons';
 
