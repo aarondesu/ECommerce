@@ -37,7 +37,7 @@ class Users extends BaseEntity {
     role: UserRole;
 
   @Column({ nullable: true })
-    imgUrl: string;
+    img: string;
 
   @Column()
     firstName: string;

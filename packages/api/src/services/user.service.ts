@@ -14,6 +14,27 @@ class UserService {
 
     return user as Users;
   };
+
+  getAll = async (limit: number, page: number) : Promise<{
+    users: Users[];
+    pages: number;
+  }> => {
+    let qb = Users.createQueryBuilder();
+
+    const skip = limit * page - limit;
+    qb = qb.skip(skip).take(limit);
+    const { entities } = await qb.getRawAndEntities();
+    const [, count] = await Users.findAndCount();
+    const pages = Math.ceil(count / limit);
+
+    const users = entities.map((user) => {
+      const { password, ...extractedUser } = user;
+
+      return extractedUser as Users;
+    });
+
+    return { users, pages };
+  };
 }
 
 export default UserService;
