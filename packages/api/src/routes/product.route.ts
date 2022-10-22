@@ -1,5 +1,4 @@
 import { Router } from 'express';
-import passport from 'passport';
 import ProductController from '../controllers/product.controller';
 import { RouterInterface } from '../interfaces/router';
 
@@ -17,7 +16,6 @@ class ProductRoute implements RouterInterface {
      */
     this.router.post(
       '/create',
-      [passport.authenticate('jwt', { session: false })],
       [this.productController.create],
     );
     /**
@@ -26,17 +24,16 @@ class ProductRoute implements RouterInterface {
      */
     this.router.get('/:id', [this.productController.get]);
     /**
-     * Gets products list based on limit and page
+     * Gets products list based on page number
      * /api/products/:limit/:page
      */
-    this.router.get('/:limit/:page', [this.productController.getByPagination]);
+    this.router.get('/p/:page', [this.productController.paginate]);
     /**
      * Updates product information
      * /api/products/update/:productId
      */
     this.router.post(
       '/update/',
-      [passport.authenticate('jwt', { session: false })],
       [this.productController.update],
     );
     /**
@@ -45,7 +42,6 @@ class ProductRoute implements RouterInterface {
      */
     this.router.get(
       '/remove/:id',
-      [passport.authenticate('jwt', { session: false })],
       [this.productController.remove],
     );
   }

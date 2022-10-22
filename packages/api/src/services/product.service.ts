@@ -28,6 +28,30 @@ class ProductService {
     return findProducts;
   };
 
+  paginate = async (limit:number, page:number): Promise<{
+    products: Products[],
+    pages: number,
+  }> => {
+    let qb = Products.createQueryBuilder();
+
+    // Paginate
+    const skip = limit * page - limit;
+    qb = qb.skip(skip).take(limit);
+
+    const [result, count] = await qb.getManyAndCount();
+    const pages = Math.ceil(count / limit);
+
+    const products = result.map((product) => {
+      const {
+        createdAt, desc, size, color, categories, ...extractedProduc
+      } = product;
+
+      return extractedProduc as Products;
+    });
+
+    return { products, pages };
+  };
+
   findAllByPagination = async (limit: number, page: number): Promise<Products[]> => {
     let queryBuilder = Products.createQueryBuilder();
 

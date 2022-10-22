@@ -35,7 +35,7 @@ class Products extends BaseEntity {
   @Column({ nullable: true, type: 'json' })
     color: JSON;
 
-  @Column()
+  @Column({ default: false })
     isAvailable: boolean;
 
   @Column()

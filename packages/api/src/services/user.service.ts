@@ -62,7 +62,7 @@ class UserService {
     const pages = Math.ceil(count / limit);
 
     const users = result.map((user) => {
-      const { password, createdAt, ...extractedUser } = user;
+      const { password, ...extractedUser } = user;
 
       return extractedUser as Users;
     });

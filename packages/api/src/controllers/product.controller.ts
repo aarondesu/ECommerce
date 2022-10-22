@@ -65,6 +65,20 @@ class ProductController {
       next(error);
     }
   };
+
+  paginate = async (req:Request, res: Response, next: NextFunction) => {
+    try {
+      const { page } = req.params;
+      const { products, pages } = await this.productService.paginate(20, Number(page));
+
+      res.status(200).json({
+        products,
+        pages,
+      });
+    } catch (error) {
+      next(error);
+    }
+  };
 }
 
 export default ProductController;

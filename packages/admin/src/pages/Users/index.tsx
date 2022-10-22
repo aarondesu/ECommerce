@@ -27,7 +27,7 @@ const Users = () => {
   const form = useForm<SearchValues>({
     initialValues: {
       word: '',
-      sort: 'u',
+      sort: 'i',
       order: 'a',
     },
   });

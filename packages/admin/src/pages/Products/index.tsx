@@ -2,70 +2,19 @@ import {
   Box,
   Title,
   Table,
-  Avatar,
-  Text,
-  Checkbox,
   Button,
-  CloseButton,
-  NumberInput,
   Pagination,
-  Group,
-  Center,
   Select,
   TextInput,
+  Group,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
-import { useId } from '@mantine/hooks';
-import { IconEye, IconFilter, IconPlus } from '@tabler/icons';
-import { useState } from 'react';
+import { IconFilter, IconPlus } from '@tabler/icons';
+import { useEffect, useState } from 'react';
+import ProductList from '../../components/ProductList';
+import { usePaginateQuery } from '../../redux/api/products.api';
 
 import useStyles from './styles';
-
-interface ProductData {
-  id: string;
-  img: string;
-  name: string;
-  price: number;
-  isAvailable: boolean;
-}
-
-const dummyData: ProductData[] = [
-  {
-    id: '1231231',
-    img: 'https://ufxpuewfaoxlauohzsep.supabase.co/storage/v1/object/public/shinucommerce/shirt.png',
-    name: 'Shirt',
-    price: 120,
-    isAvailable: true,
-  },
-  {
-    id: '12asdf311dfas231',
-    img: 'https://ufxpuewfaoxlauohzsep.supabase.co/storage/v1/object/public/shinucommerce/shirt.png',
-    name: 'Shirt 1',
-    price: 50,
-    isAvailable: true,
-  },
-  {
-    id: '123dsfas',
-    img: 'https://ufxpuewfaoxlauohzsep.supabase.co/storage/v1/object/public/shinucommerce/shirt.png',
-    name: 'Shirt 2',
-    price: 30,
-    isAvailable: false,
-  },
-  {
-    id: 'teqwrq124',
-    img: 'https://ufxpuewfaoxlauohzsep.supabase.co/storage/v1/object/public/shinucommerce/shirt.png',
-    name: 'Shirt 3',
-    price: 30,
-    isAvailable: false,
-  },
-  {
-    id: '1231sdfa',
-    img: 'https://ufxpuewfaoxlauohzsep.supabase.co/storage/v1/object/public/shinucommerce/shirt.png',
-    name: 'Shirt 4',
-    price: 30,
-    isAvailable: false,
-  },
-];
 
 interface SearchValues {
   key: string;
@@ -75,7 +24,7 @@ interface SearchValues {
 
 const Products = () => {
   const { classes } = useStyles();
-  const [total] = useState(1);
+  const [total, setTotal] = useState(1);
   const [page, setPage] = useState(1);
 
   const form = useForm<SearchValues>({
@@ -86,48 +35,19 @@ const Products = () => {
     },
   });
 
+  const { data, isFetching, isSuccess } = usePaginateQuery({
+    page,
+  });
+
+  useEffect(() => {
+    if (isSuccess) {
+      setTotal(data.pages);
+    }
+  }, [isSuccess]);
+
   const handleForm = () => {
     // TODO
   };
-
-  const results = dummyData.map((data) => (
-    <tr key={data.id}>
-      <td>
-        <Avatar src={data.img} size="lg" />
-      </td>
-      <td>
-        <Text weight={700} color="gray">
-          {useId()}
-        </Text>
-      </td>
-      <td>
-        <Text>{data.name}</Text>
-      </td>
-      <td>
-        <NumberInput hideControls value={data.price} />
-      </td>
-      <td>
-        <Center>
-          <Checkbox defaultChecked={data.isAvailable} />
-        </Center>
-      </td>
-      <td>
-        <Center>
-          <Button.Group>
-            <Button leftIcon={<IconEye size={18} stroke={1} />} variant="default" compact>
-              View
-            </Button>
-            <Button leftIcon={<IconEye size={18} stroke={1} />} variant="default" compact>
-              Edit
-            </Button>
-          </Button.Group>
-        </Center>
-      </td>
-      <td>
-        <CloseButton />
-      </td>
-    </tr>
-  ));
 
   return (
     <>
@@ -145,7 +65,7 @@ const Products = () => {
           <Group mt="md" spacing="xl" style={{ alignItems: 'flex-end' }}>
             <TextInput
               label="Search"
-              placeholder="Search Username, Email, etc..."
+              placeholder="Search keyword in name and description..."
               style={{ width: 425 }}
               {...form.getInputProps('word')}
             />
@@ -156,6 +76,7 @@ const Products = () => {
                 { label: 'Id', value: 'i' },
                 { label: 'Name', value: 't' },
                 { label: 'Created', value: 'u' },
+                { label: 'Price', value: 'p' },
               ]}
               style={{ width: 150 }}
               {...form.getInputProps('sort')}
@@ -178,7 +99,7 @@ const Products = () => {
         </form>
 
         <Group position="center" mt="xl">
-          <Pagination align="center" total={total} page={page} onChange={setPage} />
+          <Pagination align="center" total={total} page={page} onChange={setPage} disabled={isFetching} />
         </Group>
 
         <Table striped highlightOnHover mt="md">
@@ -201,11 +122,11 @@ const Products = () => {
               <td width={50} />
             </tr>
           </thead>
-          <tbody>{results}</tbody>
+          <ProductList isFetching={isFetching} data={data} />
         </Table>
 
         <Group position="center" mt="md">
-          <Pagination align="center" total={total} page={page} onChange={setPage} />
+          <Pagination align="center" total={total} page={page} onChange={setPage} disabled={isFetching} />
         </Group>
       </Box>
     </>
