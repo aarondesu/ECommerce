@@ -27,16 +27,16 @@ class Products extends BaseEntity {
     img: string;
 
   @Column({ nullable: true })
-    quantity: number;
-
-  @Column({ nullable: true })
     categories: string;
 
-  @Column({ nullable: true })
-    size: string;
+  @Column({ nullable: true, type: 'json' })
+    size: JSON;
 
-  @Column({ nullable: true })
-    color: string;
+  @Column({ nullable: true, type: 'json' })
+    color: JSON;
+
+  @Column()
+    isAvailable: boolean;
 
   @Column()
     price: number;

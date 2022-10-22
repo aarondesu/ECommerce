@@ -19,9 +19,9 @@ class UserRoute implements RouterInterface {
 
     /**
      * Gets users
-     * /api/users/:limit/:page
+     * /api/users/p/:page
      */
-    this.router.get('/:limit/:page', [this.userController.getAll]);
+    this.router.get('/p/:page', [this.userController.paginate]);
     // this.router.post('/update/:id', [this.userController.update]);
   }
 }
