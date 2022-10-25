@@ -10,9 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@vitejs/plugin-react": "^2.1.0",
     "@emotion/react": "^11.10.4",
-    "@mantine/core": "^5.5.5",
+    "@mantine/core": "^5.6.2",
     "@mantine/dates": "^5.5.5",
     "@mantine/dropzone": "^5.5.5",
     "@mantine/form": "^5.5.5",
@@ -22,6 +21,7 @@
     "@mantine/rte": "^5.5.5",
     "@reduxjs/toolkit": "^1.8.6",
     "@tabler/icons": "^1.105.0",
+    "@vitejs/plugin-react": "^2.1.0",
     "dayjs": "^1.11.5",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
