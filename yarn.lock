@@ -503,6 +503,7 @@ __metadata:
     "@mantine/dropzone": ^5.5.5
     "@mantine/form": ^5.5.5
     "@mantine/hooks": ^5.5.5
+    "@mantine/modals": ^5.6.2
     "@mantine/notifications": ^5.5.5
     "@mantine/nprogress": ^5.5.5
     "@mantine/rte": ^5.5.5
@@ -1287,6 +1288,20 @@ __metadata:
     react: ">=16.8.0"
     react-dom: ">=16.8.0"
   checksum: 436b76b10ab6ad049cfee4408a262c8ef5091dad9de8a567935f2cf1af0d429e987be5d646fefe28c3bf5b26f6ec21fc292bb042a15ac7374c96d10f8fea2c45
+  languageName: node
+  linkType: hard
+
+"@mantine/modals@npm:^5.6.2":
+  version: 5.6.2
+  resolution: "@mantine/modals@npm:5.6.2"
+  dependencies:
+    "@mantine/utils": 5.6.2
+  peerDependencies:
+    "@mantine/core": 5.6.2
+    "@mantine/hooks": 5.6.2
+    react: ">=16.8.0"
+    react-dom: ">=16.8.0"
+  checksum: 10d73254a26653362c3d3e39341a5f99fcd72c8d9c17af1b3c972912c2b4b6d129a0e8ada68143e6dae25095447a58d5a52e5ce5f4f9548f7d5725b89abbf886
   languageName: node
   linkType: hard
 
