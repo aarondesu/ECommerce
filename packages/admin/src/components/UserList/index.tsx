@@ -1,10 +1,11 @@
 import { useEffect } from 'react';
 import {
-  Avatar, Button, Center, CloseButton, Loader, Text, Title,
+  Avatar, Button, Center, Table, Text, Title,
 } from '@mantine/core';
-import { IconEye, IconEdit } from '@tabler/icons';
+import { IconEye, IconEdit, IconEraser } from '@tabler/icons';
 
 import { UsersResponse } from '../../redux/api/users.api';
+import DataLoader from '../DataLoader';
 
 interface UserListProps {
   isLoading: boolean;
@@ -17,72 +18,77 @@ const UserList = ({ isLoading, data } : UserListProps) => {
   }, []);
 
   if (isLoading) {
-    return (
-      <tbody>
-        <tr>
-          <td colSpan={10}>
-            <Center p="xl">
-              <Loader color="dark" variant="dots" size="xl" />
-            </Center>
-          </td>
-        </tr>
-      </tbody>
-    );
+    return <DataLoader />;
   }
 
   if (!data.users || data.users.length === 0) {
     return (
-      <tbody>
-        <tr>
-          <td colSpan={10}>
-            <Center p="xl">
-              <Title order={4} weight={900}>No Results</Title>
-            </Center>
-          </td>
-        </tr>
-      </tbody>
+      <Center p="xl">
+        <Title order={4} weight={900}>
+          No Results
+        </Title>
+      </Center>
     );
   }
 
   return (
-    <tbody>
-      {data.users.map((user) => (
-        <tr key={user.id}>
-          <td>
-            <Avatar size="lg" radius="xl" src={user.img} />
+    <Table striped highlightOnHover mt="md">
+      <thead>
+        <tr>
+          <td width={60} />
+          <td style={{ width: 350 }}>
+            <b>ID</b>
           </td>
-          <td>
-            <Text color="gray">{user.id}</Text>
+          <td style={{ minWidth: 100 }}>
+            <b>Username</b>
           </td>
-          <td>
-            <Text>{user.username}</Text>
+          <td style={{ minWidth: 300 }}>
+            <b>Email</b>
           </td>
-          <td>
-            <Text>{user.email}</Text>
+          <td width={100}>
+            <b>Role</b>
           </td>
-          <td>
-            <Text>{user.role}</Text>
-          </td>
-          <td>
-            <Center>
-              <Button.Group>
-                <Button compact variant="default" leftIcon={<IconEye size={18} stroke={1.3} />}>
-                  View
-                </Button>
-                <Button compact variant="default" leftIcon={<IconEdit size={18} stroke={1.3} />}>
-                  Edit
-                </Button>
-              </Button.Group>
-            </Center>
-          </td>
-          <td>
-            <Center>
-              <CloseButton />
-            </Center>
-          </td>
+          <td width={100} />
         </tr>
-      ))}
-    </tbody>
+      </thead>
+      <tbody>
+        {data.users.map((user) => (
+          <tr key={user.id}>
+            <td>
+              <Avatar size="lg" radius="xl" src={user.img} />
+            </td>
+            <td>
+              <Text color="gray">{user.id}</Text>
+            </td>
+            <td>
+              <Text>{user.username}</Text>
+            </td>
+            <td>
+              <Text>{user.email}</Text>
+            </td>
+            <td>
+              <Text>{user.role}</Text>
+            </td>
+            <td>
+              <Center>
+                <Button.Group>
+                  <Button compact variant="default" leftIcon={<IconEye size={18} stroke={1} />}>
+                    View
+                  </Button>
+                  <Button compact variant="default" leftIcon={<IconEdit size={18} stroke={1} />}>
+                    Edit
+                  </Button>
+                  <Button compact variant="default" leftIcon={<IconEraser size={18} stroke={1} />}>
+                    Delete
+                  </Button>
+                </Button.Group>
+              </Center>
+            </td>
+          </tr>
+        ))}
+      </tbody>
+    </Table>
+
   );
 };
 

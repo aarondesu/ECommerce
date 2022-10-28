@@ -22,17 +22,48 @@ class ProductService {
     return findProduct;
   };
 
-  findAll = async (): Promise<Products[]> => {
-    const findProducts = await Products.find();
-
-    return findProducts;
-  };
-
-  paginate = async (limit:number, page:number): Promise<{
-    products: Products[],
-    pages: number,
+  findByPaginate = async (
+    limit: number,
+    page: number,
+    key: string,
+    sort: string,
+    order: string,
+  ): Promise<{
+    products: Products[];
+    pages: number;
   }> => {
     let qb = Products.createQueryBuilder();
+
+    // Filter search using specified words
+    if (key !== 'undefined' && key !== '') {
+      qb = qb.where('Products.name ILIKE :word OR Products.desc ILIKE :word', { word: `%${key}%` });
+    }
+
+    // Order by
+    if (sort !== '' && order !== '') {
+      let col = '';
+
+      switch (sort) {
+        case 'i':
+          col = 'Products.id';
+          break;
+        case 'n':
+          col = 'Products.name';
+          break;
+        case 'p':
+          col = 'Products.price';
+          break;
+        default:
+          col = 'Products.createdAt';
+          break;
+      }
+
+      if (order === 'a') {
+        qb.orderBy(col, 'ASC');
+      } else if (order === 'd') {
+        qb.orderBy(col, 'DESC');
+      }
+    }
 
     // Paginate
     const skip = limit * page - limit;
@@ -50,16 +81,6 @@ class ProductService {
     });
 
     return { products, pages };
-  };
-
-  findAllByPagination = async (limit: number, page: number): Promise<Products[]> => {
-    let queryBuilder = Products.createQueryBuilder();
-
-    const skip = limit * page - limit;
-    queryBuilder = queryBuilder.skip(skip).take(limit);
-
-    const { entities } = await queryBuilder.getRawAndEntities();
-    return entities;
   };
 
   update = async (updateProdDTO: ProductDTO): Promise<Products> => {

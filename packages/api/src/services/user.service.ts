@@ -29,7 +29,7 @@ class UserService {
 
     // Filter search using specified words
     if (key !== 'undefined' && key !== '') {
-      qb = qb.where('Users.username LIKE :word OR Users.email LIKE :word', { word: `%${key}%` });
+      qb = qb.where('Users.username ILIKE :word OR Users.email ILIKE :word', { word: `%${key}%` });
     }
 
     // Order by

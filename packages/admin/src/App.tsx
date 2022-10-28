@@ -5,6 +5,7 @@ import { lazy, Suspense } from 'react';
 
 import Layout from './components/Layout';
 import Loading from './components/Loading';
+import Login from './pages/Login';
 
 // OTHERS
 const Dashboard = lazy(() => import('./pages/Dashboard'));
@@ -15,6 +16,10 @@ const Products = lazy(() => import('./pages/Products'));
 
 const App = () => {
   const router = createBrowserRouter([
+    {
+      path: '/login',
+      element: <Login />,
+    },
     {
       path: '/',
       element: <Layout />,

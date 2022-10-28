@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from 'express';
-import logger from '../lib/logger';
 import { ProductDTO } from '../dtos/product.dto';
 import ProductService from '../services/product.service';
+import Filter from '../dtos/fitler.dto';
 
 class ProductController {
   productService: ProductService = new ProductService();
@@ -28,24 +28,9 @@ class ProductController {
     }
   };
 
-  getByPagination = async (req: Request, res: Response, next: NextFunction) => {
-    try {
-      const { limit, page } = req.params;
-
-      const products = await this.productService.findAllByPagination(Number(limit), Number(page));
-
-      res.status(200).json(products);
-    } catch (error) {
-      next(error);
-    }
-  };
-
   update = async (req: Request, res: Response, next: NextFunction) => {
     try {
-      logger.info(req.body);
-
       const updateProdDTO = req.body as ProductDTO;
-      logger.info(updateProdDTO.id);
 
       const product = await this.productService.update(updateProdDTO);
 
@@ -66,10 +51,17 @@ class ProductController {
     }
   };
 
-  paginate = async (req:Request, res: Response, next: NextFunction) => {
+  paginate = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { page } = req.params;
-      const { products, pages } = await this.productService.paginate(20, Number(page));
+      const filter = req.query as unknown as Filter;
+      const { products, pages } = await this.productService.findByPaginate(
+        Number(filter.limit) || 20,
+        Number(page),
+        filter.key,
+        filter.sort,
+        filter.order,
+      );
 
       res.status(200).json({
         products,

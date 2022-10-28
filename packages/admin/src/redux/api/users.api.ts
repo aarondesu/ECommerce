@@ -11,7 +11,7 @@ export interface User {
 export interface UsersRequest {
   limit: number;
   page: number;
-  word: string;
+  keyword: string;
   order: string;
   sort: string;
 }
@@ -29,7 +29,7 @@ export const usersApi = createApi({
   endpoints: (builder) => ({
     paginate: builder.query<UsersResponse, UsersRequest>({
       query: (req) => ({
-        url: `/p/${req.page}?key=${req.word}&sort=${req.sort}&order=${req.order}`,
+        url: `/p/${req.page}?key=${req.keyword}&sort=${req.sort}&order=${req.order}`,
         method: 'GET',
       }),
     }),

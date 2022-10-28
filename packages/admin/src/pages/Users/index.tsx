@@ -1,5 +1,5 @@
 import {
-  Box, Title, Table, Pagination, Group, TextInput, Select, Button,
+  Box, Title, Pagination, Group, TextInput, Select, Button,
 } from '@mantine/core';
 import { useForm } from '@mantine/form';
 import { useEffect, useState } from 'react';
@@ -21,7 +21,7 @@ const Users = () => {
   const [totalPage, setTotalPage] = useState(1);
   const [page, setPage] = useState(1);
   const [keyword, setKeyword] = useState('');
-  const [sort, setSort] = useState('t');
+  const [sort, setSort] = useState('i');
   const [order, setOrder] = useState('a');
 
   const form = useForm<SearchValues>({
@@ -37,15 +37,15 @@ const Users = () => {
   } = usePaginateQuery({
     page,
     limit: 10,
-    word: keyword,
+    keyword,
     sort,
     order,
   });
 
   const handleForm = (values : SearchValues) => {
     setKeyword(values.word);
-    setSort(values.sort);
     setOrder(values.order);
+    setSort(values.sort);
     refetch();
   };
 
@@ -67,9 +67,7 @@ const Users = () => {
           <Title order={2} weight={900}>
             Users
           </Title>
-          <Button leftIcon={<IconPlus size={18} />}>
-            Create
-          </Button>
+          <Button leftIcon={<IconPlus size={18} />}>Create</Button>
         </Group>
       </Box>
 
@@ -121,28 +119,7 @@ const Users = () => {
           />
         </Group>
 
-        <Table striped highlightOnHover mt="md">
-          <thead>
-            <tr>
-              <td width={60} />
-              <td style={{ width: 350 }}>
-                <b>ID</b>
-              </td>
-              <td style={{ minWidth: 100 }}>
-                <b>Username</b>
-              </td>
-              <td style={{ minWidth: 300 }}>
-                <b>Email</b>
-              </td>
-              <td width={50}>
-                <b>Role</b>
-              </td>
-              <td width={200} />
-              <td width={60} />
-            </tr>
-          </thead>
-          <UserList isLoading={isFetching} data={data} />
-        </Table>
+        <UserList isLoading={isFetching} data={data} />
 
         <Group position="center" mt="md">
           <Pagination

@@ -1,4 +1,5 @@
 import { Request, Response, NextFunction } from 'express';
+import Filter from '../dtos/fitler.dto';
 import {} from '../dtos/users.dto';
 import UserService from '../services/user.service';
 
@@ -20,16 +21,14 @@ class UserController {
   paginate = async (req: Request, res: Response, next: NextFunction) => {
     try {
       const { page } = req.params;
-      const {
-        key, limit, sort, order,
-      } = req.query;
+      const filter = req.query as unknown as Filter;
 
       const { users, pages } = await this.userService.paginate(
-        Number(limit) || 20,
+        filter.limit || 20,
         Number(page),
-        key as string || '',
-        sort as string || '',
-        order as string || '',
+        filter.key,
+        filter.sort,
+        filter.order,
       );
 
       res.status(200).json({
