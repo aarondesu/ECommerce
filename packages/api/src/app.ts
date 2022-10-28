@@ -8,7 +8,6 @@ import { DataSource } from 'typeorm';
 import { TypeormStore } from 'connect-typeorm';
 import helmet from 'helmet';
 import CryptoJS from 'crypto-js';
-import fileUpload from 'express-fileupload';
 
 import AppDataSource from './database';
 import { RouterInterface } from './interfaces/router';
@@ -62,7 +61,6 @@ class ExpressApp {
 
     this.app.use(express.json());
     this.app.use(cors({ origin: '*', credentials: true }));
-    this.app.use(fileUpload({}));
     this.app.use(helmet());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(
