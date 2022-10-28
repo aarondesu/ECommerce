@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { VITE_API_SERVER } from '../../config';
 
 export interface Product {
   id: string;
@@ -30,7 +31,7 @@ export interface ProductsResponse {
 export const productsApi = createApi({
   reducerPath: 'products',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3001/api/products',
+    baseUrl: `${VITE_API_SERVER as string}/products`,
   }),
   tagTypes: ['Products'],
   endpoints: (builder) => ({

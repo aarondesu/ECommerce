@@ -1,4 +1,5 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { VITE_API_SERVER } from '../../config';
 
 export interface User {
   id: string;
@@ -24,7 +25,7 @@ export interface UsersResponse {
 export const usersApi = createApi({
   reducerPath: 'users',
   baseQuery: fetchBaseQuery({
-    baseUrl: 'http://localhost:3001/api/users',
+    baseUrl: `${VITE_API_SERVER as string}/users`,
   }),
   endpoints: (builder) => ({
     paginate: builder.query<UsersResponse, UsersRequest>({
